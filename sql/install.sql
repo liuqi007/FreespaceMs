@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `shishuocms` ;
-USE `shishuocms`;
+CREATE DATABASE  IF NOT EXISTS `freespacems` ;
+USE `freespacems`;
 
 CREATE TABLE `admin` (
   `adminId` bigint(10) NOT NULL AUTO_INCREMENT COMMENT '管理员ID',
@@ -129,7 +129,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户';
 
 
-INSERT INTO `admin` VALUES (1,'shishuocms','6158f875bf826e15923779855b6eef2e','2012-08-08 00:00:00');
+INSERT INTO `admin` VALUES (1,'freespacems','e146e03ea5cc80ecafd41104bbe54aa9','2012-08-08 00:00:00');
 
 INSERT INTO `config` VALUES ('shishuo_headline_image_height','420','首页头图的高（px）','2012-08-08 00:00:00');
 INSERT INTO `config` VALUES ('shishuo_headline_image_width','858','首页头图的宽（px）','2012-08-08 00:00:00');
