@@ -76,10 +76,10 @@
                                       <td>${e.name}</td>
                                       <td>
                                 <!-- Icons -->
-                               <a href="javascript:void(0);" adminId="${e.adminId}" title="删除" class="js_delete_admin">
+                               <a href="javascript:void(0);" userId="${e.userId}" title="删除" class="js_delete_admin">
                                                                                                       删除
                                 </a>|
-                                <a href="${BASE_PATH}/manage/adminFolder/manage.htm?adminId=${e.adminId}" title="权限">
+                                <a href="${BASE_PATH}/manage/adminFolder/manage.htm?userId=${e.userId}" title="权限">
                                 	权限
                                 </a>
                             </td>
@@ -114,7 +114,7 @@
 		});
 		
 		$('.js_delete_admin').click(function() {
-		var adminId= $(this).attr('adminId');
+		var userId= $(this).attr('userId');
         bootbox.dialog({
             message: "是否" + $(this).attr('title') + "管理员",
             title: "提示",
@@ -124,7 +124,7 @@
                     className: "btn-success",
                     callback: function() {
                         $.post("${BASE_PATH}/manage/admin/delete.json", {
-                            "adminId": adminId
+                            "userId": userId
                         },
                         function(data) {
                             if (data.result) {

@@ -1,14 +1,13 @@
 CREATE DATABASE  IF NOT EXISTS `freespacems` ;
 USE `freespacems`;
 
-CREATE TABLE `admin` (
-  `adminId` bigint(10) NOT NULL AUTO_INCREMENT COMMENT '管理员ID',
-  `name` varchar(50) DEFAULT NULL COMMENT '管理员名称',
+CREATE TABLE `user` (
+  `userId` bigint(10) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+  `name` varchar(50) DEFAULT NULL COMMENT '用户名称',
   `password` varchar(32) DEFAULT NULL COMMENT '密码 MD5加密',
   `createTime` datetime DEFAULT NULL COMMENT '创建时间',
-  PRIMARY KEY (`adminId`),
-  UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='管理员';
+  PRIMARY KEY (`userId`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户表';
 
 CREATE TABLE `admin_folder` (
   `adminId` bigint(20) DEFAULT NULL,
@@ -129,7 +128,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户';
 
 
-INSERT INTO `admin` VALUES (1,'freespacems','e146e03ea5cc80ecafd41104bbe54aa9','2012-08-08 00:00:00');
+INSERT INTO `user` VALUES (1,'freespacems','e146e03ea5cc80ecafd41104bbe54aa9','2012-08-08 00:00:00');
 
 INSERT INTO `config` VALUES ('shishuo_headline_image_height','420','首页头图的高（px）','2012-08-08 00:00:00');
 INSERT INTO `config` VALUES ('shishuo_headline_image_width','858','首页头图的宽（px）','2012-08-08 00:00:00');

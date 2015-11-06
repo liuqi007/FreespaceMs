@@ -30,7 +30,7 @@
 					<div class="panel-body">
 						 <form id="add_adminFolder_form" method="post" class="form-horizontal" autocomplete="off" action="${BASE_PATH}/manage/adminFolder/addFolder.json">
 							<fieldset>
-								<input type="hidden" name="adminId" value="${admin.adminId}">
+								<input type="hidden" name="userId" value="${admin.userId}">
 								<div class="form-group">
                                       <label class="col-sm-2 col-sm-2 control-label">名称</label>
                                       <div class="col-sm-10">
@@ -97,7 +97,7 @@
 </section>
 <!--main content end-->
 <script type="text/javascript">
-var adminId = "${admin.adminId}";
+var userId = "${admin.userId}";
 $(function() {
 	$('#add_adminFolder_form').ajaxForm({
 			dataType : 'json',
@@ -123,7 +123,7 @@ $(function() {
                     callback: function() {
                         $.post("${BASE_PATH}/manage/adminFolder/delete.json", {
                             "folderId": folderId,
-                            "adminId": adminId
+                            "userId": userId
                         },
                         function(data) {
                             if (data.result) {

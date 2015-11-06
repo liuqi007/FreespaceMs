@@ -19,7 +19,7 @@
 				<div class="sidebar-module sidebar-module-inset">
 					<h4>功能</h4>
 					<ol class="list-unstyled">
-						<li><a href="${BASE_PATH}/admin/login.htm">登录</a><li>
+						<li><a href="${BASE_PATH}/user/login.htm">登录</a><li>
 					</ol>
 				</div>
 				<div class="sidebar-module">

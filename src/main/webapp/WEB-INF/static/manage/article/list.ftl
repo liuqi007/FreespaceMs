@@ -37,7 +37,6 @@
 	<!--main content start-->
 	<section id="main-content">
 		<section class="wrapper">
-		<#if SESSION_ADMIN.isAdmin>
 			<div class="row">
 	                  <div class="col-lg-12">
 	                      <!--breadcrumbs start -->
@@ -55,7 +54,6 @@
 	                      <!--breadcrumbs end -->
 	                  </div>
 	              </div>
-              </#if>		
         	<!-- page start-->
             <section class="panel">
 	                <header class="panel-heading">
@@ -105,17 +103,14 @@
                                     		</#if>
                							</td>
                							<td>
-               								<#if SESSION_ADMIN.isAdmin>
                 							<select class="js_article_check" articleId="${e.articleId}">
                 								<option value="init" <#if e.check=="init">selected</#if>>未审核</option>
 										<option value="yes" <#if e.check=="yes">selected</#if>>已审核</option>
 										<option value="no" <#if e.check=="no">selected</#if>>审核退回</option>
 									</select>
-									<#else>
 										<#if e.check=="init">未审核</#if>
 										<#if e.check=="yes">已审核</#if>
 										<#if e.check=="no"><span style="color:red;">审核退回</span></#if>
-									</#if>
                							</td>
                             			<td>
                             				<a href="${BASE_PATH}/manage/article/list.htm?folderId=${e.folder.folderId}&status=${e.status}">
