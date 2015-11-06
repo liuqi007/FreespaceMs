@@ -85,7 +85,7 @@
 						<a <#if menu="article">class="active"</#if> href="${BASE_PATH}/manage/article/list.htm"> <i class="icon-book"></i> <span>文章列表</span></a>
 					</li>
 					<li class="sub-menu">
-						<a href="${BASE_PATH}/manage/headline/list.htm" <#if menu="headline">class="active"</#if>> <i class="icon-desktop"></i> <span>首页头条</span></a>
+						<a <#if menu="headline">class="active"</#if> href="${BASE_PATH}/manage/headline/list.htm"> <i class="icon-desktop"></i> <span>首页头条</span></a>
 					</li>
 					<li class="">
 						<a <#if menu="folder">class="active"</#if> href="${BASE_PATH}/manage/folder/list.htm"> <i class="icon-folder-open"></i> <span>目录列表</span></a>
