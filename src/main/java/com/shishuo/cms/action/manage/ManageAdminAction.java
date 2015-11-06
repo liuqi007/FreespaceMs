@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.shishuo.cms.entity.Admin;
+import com.shishuo.cms.entity.User;
 import com.shishuo.cms.entity.vo.JsonVo;
 import com.shishuo.cms.util.SSUtils;
 
@@ -54,7 +54,7 @@ public class ManageAdminAction extends ManageBaseAction {
 	}
 
 	/**
-	 * 添加Admin
+	 * 添加User
 	 * 
 	 */
 	@ResponseBody
@@ -63,7 +63,7 @@ public class ManageAdminAction extends ManageBaseAction {
 			@RequestParam(value = "adminName") String adminName,
 			@RequestParam(value = "password") String password) {
 		JsonVo<String> json = new JsonVo<String>();
-		Admin admin = adminService.getAdminByName(adminName);
+		User admin = adminService.getUserByName(adminName);
 		if (admin == null) {
 		} else {
 			json.getErrors().put("adminName", "管理员名称不能重复");
@@ -81,7 +81,7 @@ public class ManageAdminAction extends ManageBaseAction {
 			}
 			// 检测校验结果
 			validate(json);
-			adminService.addAdmin(SSUtils.toText(adminName.trim()),
+			adminService.addUser(SSUtils.toText(adminName.trim()),
 					password);
 			json.setResult(true);
 		} catch (Exception e) {
@@ -111,8 +111,8 @@ public class ManageAdminAction extends ManageBaseAction {
 	public String update(
 			@RequestParam(value = "adminId", defaultValue = "0") long adminId,
 			ModelMap modelMap, HttpServletRequest request) {
-		Admin sessionAdmin = this.getAdmin(request);
-		Admin admin = adminService.getAdminById(sessionAdmin.getAdminId());
+		User sessionUser = this.getAdmin(request);
+		User admin = adminService.getUserById(sessionUser.getUserId());
 		modelMap.put("admin", admin);
 		return "manage/admin/update";
 	}
@@ -123,7 +123,7 @@ public class ManageAdminAction extends ManageBaseAction {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/update.json", method = RequestMethod.POST)
-	public JsonVo<String> updateAdmin(
+	public JsonVo<String> updateUser(
 			@RequestParam(value = "password") String password,
 			HttpServletRequest request) {
 		JsonVo<String> json = new JsonVo<String>();
@@ -140,8 +140,8 @@ public class ManageAdminAction extends ManageBaseAction {
 			// 检测校验结果
 			validate(json);
 			SSUtils.toText(password);
-			Admin admin = this.getAdmin(request);
-			adminService.updateAdminByAmdinId(admin.getAdminId(),
+			User admin = this.getAdmin(request);
+			adminService.updateUserByAmdinId(admin.getUserId(),
 					SSUtils.toText(password));
 			json.setResult(true);
 		} catch (Exception e) {
@@ -162,7 +162,7 @@ public class ManageAdminAction extends ManageBaseAction {
 			HttpServletRequest request) {
 		JsonVo<String> json = new JsonVo<String>();
 		try {
-			adminService.deleteAdmin(adminId);
+			adminService.deleteUser(adminId);
 			json.setResult(true);
 		} catch (Exception e) {
 			json.setResult(false);

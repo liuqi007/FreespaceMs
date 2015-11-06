@@ -25,10 +25,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.shishuo.cms.action.ArticleAction;
 import com.shishuo.cms.constant.ArticleConstant;
 import com.shishuo.cms.constant.MediaConstant;
-import com.shishuo.cms.entity.Admin;
+import com.shishuo.cms.entity.User;
 import com.shishuo.cms.entity.Article;
 import com.shishuo.cms.entity.Media;
-import com.shishuo.cms.entity.vo.AdminVo;
+import com.shishuo.cms.entity.vo.UserVo;
 import com.shishuo.cms.entity.vo.ArticleVo;
 import com.shishuo.cms.entity.vo.FolderVo;
 import com.shishuo.cms.entity.vo.JsonVo;
@@ -54,9 +54,9 @@ public class ManageArticleAction extends ManageBaseAction {
 			ModelMap modelMap,
 			@RequestParam(value = "folderId", defaultValue = "0") long folderId)
 			throws FolderNotFoundException {
-		Admin admin = this.getAdmin(request);
+		User admin = this.getAdmin(request);
 		modelMap.put("folderAll",
-				folderService.getAllFolderList(admin.getAdminId()));
+				folderService.getAllFolderList(admin.getUserId()));
 		modelMap.put("folderId", folderId);
 		return "manage/article/add";
 	}
@@ -76,7 +76,7 @@ public class ManageArticleAction extends ManageBaseAction {
 		JsonVo<Article> json = new JsonVo<Article>();
 		try {
 			Article article = articleService.addArticle(folderId, this
-					.getAdmin(request).getAdminId(), SSUtils.toText(title
+					.getAdmin(request).getUserId(), SSUtils.toText(title
 					.trim()), SSUtils.toText(summary), status, content, file,
 					createTime);
 			json.setT(article);
@@ -105,19 +105,19 @@ public class ManageArticleAction extends ManageBaseAction {
 			@RequestParam(value = "check", required = false) ArticleConstant.check check,
 			HttpServletRequest request, ModelMap modelMap)
 			throws FolderNotFoundException {
-		Admin admin = this.getAdmin(request);
+		User admin = this.getAdmin(request);
 		List<FolderVo> pathList = folderService
 				.getFolderPathListByFolderId(folderId);
 		PageVo<ArticleVo> pageVo = articleService.getArticlePageByFolderId(
-				admin.getAdminId(), folderId, check, pageNum);
+				admin.getUserId(), folderId, check, pageNum);
 		int initCount = articleService.getArticleCountByAdminIdAndFolderId(
-				admin.getAdminId(), 0, ArticleConstant.check.init);
+				admin.getUserId(), 0, ArticleConstant.check.init);
 		int noCount = articleService.getArticleCountByAdminIdAndFolderId(
-				admin.getAdminId(), 0, ArticleConstant.check.no);
+				admin.getUserId(), 0, ArticleConstant.check.no);
 		int allCount = initCount
 				+ noCount
 				+ articleService.getArticleCountByAdminIdAndFolderId(
-						admin.getAdminId(), 0, ArticleConstant.check.yes);
+						admin.getUserId(), 0, ArticleConstant.check.yes);
 		modelMap.put("pathList", pathList);
 		modelMap.put("folderId", folderId);
 		modelMap.put("pageVo", pageVo);
@@ -138,11 +138,11 @@ public class ManageArticleAction extends ManageBaseAction {
 			@RequestParam(value = "articleId", defaultValue = "1") long articleId,
 			ModelMap modelMap, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		Admin admin = this.getAdmin(request);
+		User admin = this.getAdmin(request);
 		ArticleVo article = articleService.getArticleById(articleId);
 		modelMap.put("article", article);
 		modelMap.put("folderAll",
-				folderService.getAllFolderList(admin.getAdminId()));
+				folderService.getAllFolderList(admin.getUserId()));
 		modelMap.put("JSESSIONID", request.getSession().getId());
 		return "manage/article/update";
 	}
@@ -177,7 +177,7 @@ public class ManageArticleAction extends ManageBaseAction {
 		JsonVo<Article> json = new JsonVo<Article>();
 		try {
 			Article article = articleService.updateArticle(articleId,
-					folderId, this.getAdmin(request).getAdminId(),
+					folderId, this.getAdmin(request).getUserId(),
 					SSUtils.toText(title.trim()), SSUtils.toText(summary),
 					content, status, file, createTime);
 			json.setT(article);
@@ -233,8 +233,8 @@ public class ManageArticleAction extends ManageBaseAction {
 			@RequestParam(value = "check") ArticleConstant.check check,
 			HttpServletRequest request) throws ArticleNotFoundException {
 		JsonVo<String> json = new JsonVo<String>();
-		AdminVo admin = this.getAdmin(request);
-		if (!admin.getIsAdmin()) {
+		UserVo admin = this.getAdmin(request);
+		if (!admin.getIsUser()) {
 			json.setResult(false);
 			json.setMsg("您不是超级管理员，无权该审核文件！");
 		} else {

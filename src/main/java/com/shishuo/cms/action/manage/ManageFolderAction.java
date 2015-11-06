@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shishuo.cms.constant.FolderConstant;
 import com.shishuo.cms.constant.MediaConstant;
-import com.shishuo.cms.entity.Admin;
+import com.shishuo.cms.entity.User;
 import com.shishuo.cms.entity.Folder;
 import com.shishuo.cms.entity.Media;
 import com.shishuo.cms.entity.vo.FolderVo;
@@ -48,9 +48,9 @@ public class ManageFolderAction extends ManageBaseAction {
 	@RequestMapping(value = "/add.htm", method = RequestMethod.GET)
 	public String add(ModelMap modelMap, HttpServletRequest request)
 			throws Exception {
-		Admin admin = this.getAdmin(request);
+		User admin = this.getAdmin(request);
 		modelMap.put("folderAll",
-				folderService.getAllFolderList(admin.getAdminId()));
+				folderService.getAllFolderList(admin.getUserId()));
 		modelMap.put("folderName", "");
 		modelMap.put("folderEname", "");
 		return "manage/folder/add";
@@ -115,7 +115,7 @@ public class ManageFolderAction extends ManageBaseAction {
 		} else {
 			folder = folderService.getFolderById(folderId);
 		}
-		Admin admin = this.getAdmin(request);
+		User admin = this.getAdmin(request);
 		List<FolderVo> folderList = folderService.getFolderListByFatherId(
 				folderId, null);
 		modelMap.put("folder", folder);
@@ -124,7 +124,7 @@ public class ManageFolderAction extends ManageBaseAction {
 		modelMap.put("folderName", "");
 		modelMap.put("folderEname", "");
 		modelMap.put("folderAll",
-				folderService.getAllFolderList(admin.getAdminId()));
+				folderService.getAllFolderList(admin.getUserId()));
 		return "manage/folder/list";
 	}
 

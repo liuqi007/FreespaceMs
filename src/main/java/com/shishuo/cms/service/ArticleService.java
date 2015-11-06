@@ -47,7 +47,7 @@ public class ArticleService {
 	private ArticleDao articleDao;
 
 	@Autowired
-	private AdminService adminService;
+	private UserService adminService;
 
 	@Autowired
 	private FolderService folderService;

@@ -43,7 +43,7 @@ public class ManageAdminFolderAction extends ManageBaseAction {
 			e.printStackTrace();
 		}
 		List<FolderVo> folderAll = folderService.getAllFolderList(adminId);
-		modelMap.put("admin", adminService.getAdminById(adminId));
+		modelMap.put("admin", adminService.getUserById(adminId));
 		modelMap.put("list", list);
 		modelMap.put("folderAll", folderAll);
 		return "manage/adminFolder/manage";

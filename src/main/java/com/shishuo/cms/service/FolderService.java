@@ -41,7 +41,7 @@ public class FolderService {
 	private FolderDao folderDao;
 
 	@Autowired
-	private AdminService adminService;
+	private UserService userService;
 	
 	@Autowired
 	private AdminFolderService adminFolderService;
@@ -84,7 +84,7 @@ public class FolderService {
 		folder.setCheck(check);
 		folder.setCreateTime(new Date());
 		folderDao.addFolder(folder);
-		adminFolderService.addAdminFolder(adminService.getSuperAdminId(), folder.getFolderId());
+		adminFolderService.addAdminFolder(userService.getSuperAdminId(), folder.getFolderId());
 		if (fatherId == 0) {
 			this.updatePath(folder.getFolderId(), folder.getFolderId() + "");
 		} else {

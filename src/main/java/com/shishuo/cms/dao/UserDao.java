@@ -10,8 +10,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import com.shishuo.cms.entity.Admin;
-import com.shishuo.cms.entity.vo.AdminVo;
+import com.shishuo.cms.entity.User;
+import com.shishuo.cms.entity.vo.UserVo;
 
 /**
  * 管理员
@@ -20,7 +20,7 @@ import com.shishuo.cms.entity.vo.AdminVo;
  */
 
 @Repository
-public interface AdminDao {
+public interface UserDao {
 
 	// ///////////////////////////////
 	// ///// 增加 ////////
@@ -29,11 +29,11 @@ public interface AdminDao {
 	/**
 	 * 添加管理员
 	 * 
-	 * @param Admin
+	 * @param User
 	 * @return Integer
 	 * 
 	 */
-	public int addAdmin(Admin admin);
+	public int addUser(User user);
 
 	// ///////////////////////////////
 	// ///// 刪除 ////////
@@ -42,11 +42,11 @@ public interface AdminDao {
 	/**
 	 * 删除管理员
 	 * 
-	 * @param adminId
+	 * @param userId
 	 * @return Integer
 	 * 
 	 */
-	public int deleteAdmin(@Param("adminId") long adminId);
+	public int deleteUser(@Param("userId") long userId);
 
 	// ///////////////////////////////
 	// ///// 修改 ////////
@@ -59,7 +59,7 @@ public interface AdminDao {
 	 * @param name
 	 * @param password
 	 */
-	public void updateAdminByadminId(@Param("adminId") long adminId,
+	public void updateUserByuserId(@Param("userId") long userId,
 			@Param("password") String password);
 
 	// ///////////////////////////////
@@ -71,10 +71,10 @@ public interface AdminDao {
 	 * 
 	 * @param offset
 	 * @param rows
-	 * @return List<Admin>
+	 * @return List<User>
 	 * 
 	 */
-	public List<Admin> getAllList(@Param("offset") long offset,
+	public List<User> getAllList(@Param("offset") long offset,
 			@Param("rows") long rows);
 
 	/**
@@ -88,18 +88,18 @@ public interface AdminDao {
 	/**
 	 * 通过Id获得指定管理员资料
 	 * 
-	 * @param adminId
-	 * @return Admin
+	 * @param userId
+	 * @return User
 	 */
-	public Admin getAdminById(@Param("adminId") long adminId);
+	public User getUserById(@Param("userId") long userId);
 
 	/**
 	 * 通过email获得指定的管理员
 	 * 
 	 * @param email
-	 * @return Admin
+	 * @return User
 	 * 
 	 */
-	public AdminVo getAdminByName(@Param("name") String name);
+	public UserVo getUserByName(@Param("name") String name);
 
 }

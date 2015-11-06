@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.shishuo.cms.constant.SystemConstant;
 import com.shishuo.cms.entity.vo.JsonVo;
-import com.shishuo.cms.service.AdminService;
+import com.shishuo.cms.service.UserService;
 import com.shishuo.cms.util.HttpUtils;
 
 /**
@@ -34,7 +34,7 @@ import com.shishuo.cms.util.HttpUtils;
  */
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/user")
 public class AdminAction extends BaseAction {
 
 	/**
@@ -44,7 +44,7 @@ public class AdminAction extends BaseAction {
 	private DefaultKaptcha captchaProducer;
 
 	@Autowired
-	private AdminService adminService;
+	private UserService userService;
 
 	@RequestMapping(value = "/login.htm", method = RequestMethod.GET)
 	public String login(HttpServletRequest request, ModelMap modelMap) {
@@ -59,7 +59,7 @@ public class AdminAction extends BaseAction {
 
 	@ResponseBody
 	@RequestMapping(value = "/login.json", method = RequestMethod.POST)
-	public JsonVo<String> adminLogin(@RequestParam(value = "name") String name,
+	public JsonVo<String> login(@RequestParam(value = "name") String name,
 			@RequestParam(value = "password") String password,
 			@RequestParam(value = "captcha") String captcha,
 			HttpServletRequest request, ModelMap modelMap) {
@@ -82,9 +82,10 @@ public class AdminAction extends BaseAction {
 			}
 			json.check();
 
-			adminService.adminLogin(name, password, request);
+			userService.userLogin(name, password, request);
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			// 异常，重置验证码
 			request.getSession().removeAttribute(
 					com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);

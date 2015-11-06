@@ -8,36 +8,29 @@ package com.shishuo.cms.entity;
 
 import java.util.Date;
 
-import com.shishuo.cms.constant.UserConstant;
-
 /**
- * 用户实体
+ * 管理员实体
  * 
- * @author zsy
+ * @author Administrator
  * 
  */
 
 public class User {
 
 	/**
-	 * 用户ID
+	 * 管理员Id
 	 */
 	private long userId;
 
 	/**
-	 * 公共用户ID
-	 */
-	private long openId;
-
-	/**
-	 * 帐号类型
-	 */
-	private UserConstant.Type type;
-
-	/**
-	 * 用户名
+	 * 管理员名称
 	 */
 	private String name;
+
+	/**
+	 * 密码
+	 */
+	private String password;
 
 	/**
 	 * 时间
@@ -52,28 +45,20 @@ public class User {
 		this.userId = userId;
 	}
 
-	public long getOpenId() {
-		return openId;
-	}
-
-	public void setOpenId(long openId) {
-		this.openId = openId;
-	}
-
-	public UserConstant.Type getType() {
-		return type;
-	}
-
-	public void setType(UserConstant.Type type) {
-		this.type = type;
-	}
-
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public Date getCreateTime() {

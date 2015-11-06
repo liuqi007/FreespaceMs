@@ -15,7 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.shishuo.cms.entity.Admin;
+import com.shishuo.cms.entity.User;
 import com.shishuo.cms.entity.vo.ArticleVo;
 import com.shishuo.cms.exception.FolderNotFoundException;
 
@@ -32,13 +32,13 @@ public class ManageAction extends ManageBaseAction {
 	@RequestMapping(value = "/index.htm", method = RequestMethod.GET)
 	public String index(HttpServletRequest request, ModelMap modelMap)
 			throws FolderNotFoundException {
-		Admin admin = this.getAdmin(request);
+		User admin = this.getAdmin(request);
 		modelMap.put("articleCount", 0);
 		modelMap.put("downloadCount", 0);
 		modelMap.put("userCount", 0);
 		modelMap.put("folderAll", folderService.getAllFolderList(0));
 		List<ArticleVo> articleList = articleService
-				.getArticleListByAdminIdAndFolderId(admin.getAdminId(), 0,
+				.getArticleListByAdminIdAndFolderId(admin.getUserId(), 0,
 						null, 0, 10);
 		modelMap.put("articleList", articleList);
 		return "manage/index";

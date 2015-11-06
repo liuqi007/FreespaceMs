@@ -17,9 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shishuo.cms.constant.SystemConstant;
-import com.shishuo.cms.dao.AdminDao;
-import com.shishuo.cms.entity.Admin;
-import com.shishuo.cms.entity.vo.AdminVo;
+import com.shishuo.cms.dao.UserDao;
+import com.shishuo.cms.entity.User;
+import com.shishuo.cms.entity.vo.UserVo;
 import com.shishuo.cms.entity.vo.PageVo;
 import com.shishuo.cms.exception.AuthException;
 import com.shishuo.cms.util.AuthUtils;
@@ -32,10 +32,10 @@ import com.shishuo.cms.util.PropertyUtils;
  * 
  */
 @Service
-public class AdminService {
+public class UserService {
 
 	@Autowired
-	private AdminDao adminDao;
+	private UserDao userDao;
 
 	// ///////////////////////////////
 	// ///// 增加 ////////
@@ -47,17 +47,17 @@ public class AdminService {
 	 * @param email
 	 * @param name
 	 * @param password
-	 * @return Admin
+	 * @return User
 	 */
-	public Admin addAdmin(String name, String password)
+	public User addUser(String name, String password)
 			throws AuthException {
 		Date now = new Date();
-		Admin admin = new Admin();
-		admin.setName(name);
-		admin.setPassword(AuthUtils.getPassword(password));
-		admin.setCreateTime(now);
-		adminDao.addAdmin(admin);
-		return admin;
+		User user = new User();
+		user.setName(name);
+		user.setPassword(AuthUtils.getPassword(password));
+		user.setCreateTime(now);
+		userDao.addUser(user);
+		return user;
 	}
 
 	// ///////////////////////////////
@@ -67,11 +67,11 @@ public class AdminService {
 	/**
 	 * 删除管理员
 	 * 
-	 * @param adminId
+	 * @param userId
 	 * @return Integer
 	 */
-	public int deleteAdmin(long adminId) {
-		return adminDao.deleteAdmin(adminId);
+	public int deleteUser(long userId) {
+		return userDao.deleteUser(userId);
 	}
 
 	// ///////////////////////////////
@@ -81,18 +81,18 @@ public class AdminService {
 	/**
 	 * 修改管理员资料
 	 * 
-	 * @param adminId
+	 * @param userId
 	 * @param name
 	 * @param password
 	 * @param status
-	 * @return Admin
+	 * @return User
 	 * @throws AuthException
 	 */
 
-	public void updateAdminByAmdinId(long adminId, String password)
+	public void updateUserByAmdinId(long userId, String password)
 			throws AuthException {
 		String pwd = AuthUtils.getPassword(password);
-		adminDao.updateAdminByadminId(adminId, pwd);
+		userDao.updateUserByuserId(userId, pwd);
 	}
 
 	// ///////////////////////////////
@@ -107,25 +107,25 @@ public class AdminService {
 	 * @param request
 	 * @throws IOException
 	 */
-	public void adminLogin(String name, String password,
+	public void userLogin(String name, String password,
 			HttpServletRequest request) throws AuthException,
 			IOException {
-		AdminVo admin = adminDao.getAdminByName(name);
-		if (admin == null) {
+		UserVo user = userDao.getUserByName(name);
+		if (user == null) {
 			throw new AuthException("邮箱或密码错误");
 		}
 		String loginPassword = AuthUtils.getPassword(password);
-		if (loginPassword.equals(admin.getPassword())) {
+		if (loginPassword.equals(user.getPassword())) {
 			HttpSession session = request.getSession();
-			admin.setPassword("");
+			user.setPassword("");
 			if (name.equals(PropertyUtils
-					.getValue("shishuocms.admin"))) {
-				admin.setAdmin(true);
+					.getValue("shishuocms.user"))) {
+				user.setUser(true);
 			} else {
-				admin.setAdmin(false);
+				user.setUser(false);
 			}
 			session.setAttribute(SystemConstant.SESSION_ADMIN,
-					admin);
+					user);
 		} else {
 			throw new AuthException("邮箱或密码错误");
 		}
@@ -134,8 +134,8 @@ public class AdminService {
 	/**
 	 * 通过Id获得指定管理员资料
 	 */
-	public Admin getAdminById(long adminId) {
-		return adminDao.getAdminById(adminId);
+	public User getUserById(long userId) {
+		return userDao.getUserById(userId);
 	}
 
 	/**
@@ -143,10 +143,10 @@ public class AdminService {
 	 * 
 	 * @param offset
 	 * @param rows
-	 * @return List<Admin>
+	 * @return List<User>
 	 */
-	public List<Admin> getAllList(long offset, long rows) {
-		return adminDao.getAllList(offset, rows);
+	public List<User> getAllList(long offset, long rows) {
+		return userDao.getAllList(offset, rows);
 	}
 
 	/**
@@ -155,19 +155,19 @@ public class AdminService {
 	 * @return Integer
 	 */
 	public int getAllListCount() {
-		return adminDao.getAllListCount();
+		return userDao.getAllListCount();
 	}
 
 	/**
 	 * 获得所有管理员的分页
 	 * 
 	 * @param Integer
-	 * @return PageVo<Admin>
+	 * @return PageVo<User>
 	 */
-	public PageVo<Admin> getAllListPage(int pageNum) {
-		PageVo<Admin> pageVo = new PageVo<Admin>(pageNum);
+	public PageVo<User> getAllListPage(int pageNum) {
+		PageVo<User> pageVo = new PageVo<User>(pageNum);
 		pageVo.setRows(20);
-		List<Admin> list = this.getAllList(pageVo.getOffset(),
+		List<User> list = this.getAllList(pageVo.getOffset(),
 				pageVo.getRows());
 		pageVo.setList(list);
 		pageVo.setCount(this.getAllListCount());
@@ -178,15 +178,15 @@ public class AdminService {
 	 * 通过email获得管理员资料
 	 * 
 	 * @param email
-	 * @return Admin
+	 * @return User
 	 */
-	public Admin getAdminByName(String name) {
-		return adminDao.getAdminByName(name);
+	public User getUserByName(String name) {
+		return userDao.getUserByName(name);
 	}
 
 	public long getSuperAdminId() {
-		Admin admin = getAdminByName(PropertyUtils
+		User user = getUserByName(PropertyUtils
 				.getValue("shishuocms.admin"));
-		return admin.getAdminId();
+		return user.getUserId();
 	}
 }
