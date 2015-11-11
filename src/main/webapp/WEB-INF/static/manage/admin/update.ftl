@@ -10,15 +10,15 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<section class="panel">
-					<header class="panel-heading"> 修改管理员资料</header>
+					<header class="panel-heading"> 修改密码</header>
 					<div class="panel-body">
 						<form id="update_admin_form" method="post" class="form-horizontal"
-							autocomplete="off" action="${BASE_PATH}/manage/admin/update.json">
+							autocomplete="off" action="${BASE_PATH}/user/updatePwd.json">
 							<fieldset>
 								<div class="form-group">
 									<label class="col-sm-2 col-sm-2 control-label">用户名</label>
 									<div class="col-sm-10">
-										${admin.name}
+										${user.account}
 									</div>
 								</div>								
 								<div class="form-group">

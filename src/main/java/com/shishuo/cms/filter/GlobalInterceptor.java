@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.shishuo.cms.constant.ConfigConstant;
 import com.shishuo.cms.service.ConfigService;
+import com.shishuo.cms.service.ResourceService;
 import com.shishuo.cms.util.HttpUtils;
 
 /**
@@ -28,6 +29,9 @@ public class GlobalInterceptor implements HandlerInterceptor {
 
 	@Autowired
 	private ConfigService configService;
+	
+	@Autowired
+	private ResourceService resourceService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request,
@@ -58,6 +62,8 @@ public class GlobalInterceptor implements HandlerInterceptor {
 				configService.getStringByKey("shishuo_seo_title"));
 		modelAndView.addObject("shishuo_seo_description",
 				configService.getStringByKey("shishuo_seo_description"));
+		modelAndView.addObject("resoureTree",
+				resourceService.getAllList());
 		MDC.put("ip", HttpUtils.getIp(request));
 	}
 

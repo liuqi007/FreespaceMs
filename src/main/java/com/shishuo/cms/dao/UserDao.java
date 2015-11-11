@@ -59,8 +59,7 @@ public interface UserDao {
 	 * @param name
 	 * @param password
 	 */
-	public void updateUserByuserId(@Param("userId") long userId,
-			@Param("password") String password);
+	public void updateUserByUserId(User user);
 
 	// ///////////////////////////////
 	// ///// 查詢 ////////
@@ -100,6 +99,15 @@ public interface UserDao {
 	 * @return User
 	 * 
 	 */
-	public UserVo getUserByName(@Param("name") String name);
+	public UserVo getUserByAccount(@Param("account") String account);
+
+	/**
+	 * 修改密码
+	 * 
+	 * @param userId
+	 * @param pwd
+	 */
+	public void updatePwd(@Param("userId") long userId,
+			@Param("password") String password);
 
 }

@@ -46,7 +46,7 @@ public class ManageBaseAction {
 	protected MediaService attachmentService;
 
 	@Autowired
-	protected UserService adminService;
+	protected UserService userService;
 
 	@Autowired
 	protected HeadlineService headlineService;

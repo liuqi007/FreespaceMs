@@ -27,6 +27,12 @@ public class User {
 	 */
 	private String name;
 
+	
+	/**
+	 * 登录帐号
+	 */
+	private String account;
+	
 	/**
 	 * 密码
 	 */
@@ -36,6 +42,11 @@ public class User {
 	 * 时间
 	 */
 	private Date createTime;
+	
+	/**
+	 * 时间
+	 */
+	private Date updateTime;
 
 	public long getUserId() {
 		return userId;
@@ -67,6 +78,22 @@ public class User {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
 	}
 
 }

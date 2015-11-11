@@ -68,7 +68,7 @@ input.error:focus {
 			<div class="login-wrap">
 				<div class="form-group">
                                       <label for="exampleInputEmail1">用户名</label>
-                                      <input type="text" name="name" class="form-control" placeholder="用户名" value="" style="*width: 250px;" autofocus>
+                                      <input type="text" name="account" class="form-control" placeholder="用户名" value="" style="*width: 250px;" autofocus>
                                   </div>
  				<div class="form-group">
                                       <label for="exampleInputEmail1">密码</label>
@@ -124,7 +124,7 @@ input.error:focus {
 								dataType : 'json',
 								success : function(data) {
 									if (data.result) {
-										location.href = "${BASE_PATH}/manage/article/list.htm";
+										location.href = "${BASE_PATH}/user/manage.htm";
 									} else {
 										showErrors($('#adminForm'), data.errors);
 										if (data.msg == "change_captcha") {

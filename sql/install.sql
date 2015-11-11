@@ -4,16 +4,31 @@ USE `freespacems`;
 CREATE TABLE `user` (
   `userId` bigint(10) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   `name` varchar(50) DEFAULT NULL COMMENT '用户名称',
+  `account` varchar(50) NOT NULL COMMENT '登录帐号',
   `password` varchar(32) DEFAULT NULL COMMENT '密码 MD5加密',
-  `createTime` datetime DEFAULT NULL COMMENT '创建时间',
+  `createTime` datetime COMMENT '创建时间',
+  `updateTime` datetime COMMENT '更新时间',
+  UNIQUE KEY (`account`),
   PRIMARY KEY (`userId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户表';
+INSERT INTO `user` VALUES (1,'freespacems','freespacems','e146e03ea5cc80ecafd41104bbe54aa9','2012-08-08 00:00:00','2012-08-08 00:00:00');
 
-CREATE TABLE `admin_folder` (
-  `adminId` bigint(20) DEFAULT NULL,
-  `folderId` bigint(20) DEFAULT NULL,
-  `createTime` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+CREATE TABLE `resource` (
+  `resId` bigint(10) NOT NULL AUTO_INCREMENT COMMENT '资源ID',
+  `parentResId` bigint(10) DEFAULT NULL COMMENT '上级资源ID',
+  `name` varchar(50) DEFAULT NULL COMMENT '名称',
+  `url` varchar(100) DEFAULT NULL COMMENT '资源url',
+  `iconcss` varchar(50) DEFAULT NULL COMMENT '图标样式',
+  `type` integer DEFAULT 0 COMMENT '0:菜单   1:按钮',
+  `isUse` integer DEFAULT 0 COMMENT '0:启用   1:不启用',
+  `createTime` datetime COMMENT '创建时间',
+  `updateTime` datetime COMMENT '更新时间',
+  `sort` integer DEFAULT 0 COMMENT '排序字段',
+   PRIMARY KEY (`resId`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='资源表';
+INSERT INTO `resource` VALUES (1,0,'用户管理','/user/manage.htm','icon-user',0,0,now(),now(),0);
+INSERT INTO `resource` VALUES (2,0,'菜单管理','/manage/admin/resource.htm','icon-user',0,0,now(),now(),0);
+INSERT INTO `resource` VALUES (3,0,'文章管理','/manage/article/list.htm','icon-book',0,0,now(),now(),0);
 
 CREATE TABLE `article` (
   `articleId` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '文件ID',
@@ -127,8 +142,6 @@ CREATE TABLE `user` (
   PRIMARY KEY (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户';
 
-
-INSERT INTO `user` VALUES (1,'freespacems','e146e03ea5cc80ecafd41104bbe54aa9','2012-08-08 00:00:00');
 
 INSERT INTO `config` VALUES ('shishuo_headline_image_height','420','首页头图的高（px）','2012-08-08 00:00:00');
 INSERT INTO `config` VALUES ('shishuo_headline_image_width','858','首页头图的宽（px）','2012-08-08 00:00:00');

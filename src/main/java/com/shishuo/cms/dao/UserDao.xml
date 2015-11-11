@@ -13,8 +13,8 @@
 
 	<insert id="addUser" parameterType="com.shishuo.cms.entity.User">
 		insert into
-		user(name,password,createTime)
-		value(#{name},#{password},#{createTime})
+		user(name,account,password,createTime,updatetime)
+		value(#{name},#{account},#{password},#{createTime},#{updateTime})
 		<selectKey resultType="long" keyProperty="userId">
 			SELECT
 			LAST_INSERT_ID()
@@ -34,10 +34,20 @@
 	<!-- ###### 修改 ###### -->
 	<!-- ############################## -->
 
-	<update id="updateUserByuserId">
+	<update id="updateUserByUserId">
+		update user set password=#{password},name=#{name}
+		where userId=#{userId}
+	</update>
+	
+	<!-- ############################## -->
+	<!-- ###### 修改密码###### -->
+	<!-- ############################## -->
+
+	<update id="updatePwd">
 		update user set password=#{password}
 		where userId=#{userId}
 	</update>
+	
 	<!-- ############################## -->
 	<!-- ###### 查询 ###### -->
 	<!-- ############################## -->
@@ -57,9 +67,9 @@
 		select * from user where userId=#{userId}
 	</select>
 
-	<select id="getUserByName" resultType="com.shishuo.cms.entity.vo.UserVo">
+	<select id="getUserByAccount" resultType="com.shishuo.cms.entity.vo.UserVo">
 		select * from user
-		where name=#{name}
+		where account=#{account}
 	</select>
 
 </mapper>  

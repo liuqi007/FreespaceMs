@@ -65,8 +65,8 @@
 	                      </a>
 	                      <ul class="dropdown-menu extended logout">
 	                          <div class="log-arrow-up"></div>
-	                          <li><a href="${BASE_PATH}/manage/admin/update.htm"><i class="icon-cog"></i> 修改密码</a></li>
-	                          <li><a href="${BASE_PATH}/admin/logout.htm"><i class="icon-key"></i> 安全退出</a></li>
+	                          <li><a href="${BASE_PATH}/user/updatePwd.htm"><i class="icon-cog"></i> 修改密码</a></li>
+	                          <li><a href="${BASE_PATH}/user/logout.htm"><i class="icon-key"></i> 安全退出</a></li>
 	                      </ul>
 	                  </li>
 	                  <!-- user login dropdown end -->
@@ -81,33 +81,11 @@
 			<div id="sidebar" class="nav-collapse ">
 				<!-- sidebar menu goes here-->
 				<ul class="sidebar-menu" id="nav-accordion">
+					<#list resoureTree as resource>
 					<li class="">
-						<a <#if menu="article">class="active"</#if> href="${BASE_PATH}/manage/article/list.htm"> <i class="icon-book"></i> <span>文章列表</span></a>
+						<a <#if menu="${resource.url}">class="active"</#if> href="${BASE_PATH}${resource.url}"> <i class="${resource.iconcss}"></i> <span>${resource.name}</span></a>
 					</li>
-					<li class="sub-menu">
-						<a <#if menu="headline">class="active"</#if> href="${BASE_PATH}/manage/headline/list.htm"> <i class="icon-desktop"></i> <span>首页头条</span></a>
-					</li>
-					<li class="">
-						<a <#if menu="folder">class="active"</#if> href="${BASE_PATH}/manage/folder/list.htm"> <i class="icon-folder-open"></i> <span>目录列表</span></a>
-					</li>	
-					<li class="">
-						<a <#if menu="message">class="active"</#if> href="${BASE_PATH}/manage/guestbook/list.htm"> <i class="icon-comments"></i> <span>留言列表</span></a>
-					</li>
-					<li class="">
-						<a <#if menu="admin_list">class="active"</#if> href="${BASE_PATH}/manage/admin/manage.htm"> <i class="icon-user"></i> <span>管理员管理</span></a>
-					</li>
-					<li class="">
-						<a <#if menu="update_password">class="active"</#if> href="${BASE_PATH}/manage/admin/update.htm"> <i class="icon-cogs"></i> <span>修改密码</span></a>
-					</li>
-					<li class="">
-						<a <#if menu="article">class="active"</#if> href="${BASE_PATH}/manage/article/list.htm"> <i class="icon-book"></i> <span>文章列表</span></a>
-					</li>
-					<li class="">
-						<a <#if menu="update_password">class="active"</#if> href="${BASE_PATH}/manage/admin/update.htm"> <i class="icon-home"></i> <span>修改密码</span></a>
-					</li>
-					<li class="">
-						<a target="_blank" href="http://rj.baidu.com/soft/detail/14744.html"><span>推荐Google浏览器</span></a>
-					</li>
+					</#list>
 				</ul>
 			</div>
 		</aside>

@@ -19,8 +19,8 @@ import org.springframework.stereotype.Service;
 import com.shishuo.cms.constant.SystemConstant;
 import com.shishuo.cms.dao.UserDao;
 import com.shishuo.cms.entity.User;
-import com.shishuo.cms.entity.vo.UserVo;
 import com.shishuo.cms.entity.vo.PageVo;
+import com.shishuo.cms.entity.vo.UserVo;
 import com.shishuo.cms.exception.AuthException;
 import com.shishuo.cms.util.AuthUtils;
 import com.shishuo.cms.util.PropertyUtils;
@@ -49,13 +49,15 @@ public class UserService {
 	 * @param password
 	 * @return User
 	 */
-	public User addUser(String name, String password)
+	public User addUser(String name, String account, String password)
 			throws AuthException {
 		Date now = new Date();
 		User user = new User();
 		user.setName(name);
+		user.setAccount(account);
 		user.setPassword(AuthUtils.getPassword(password));
 		user.setCreateTime(now);
+		user.setUpdateTime(now);
 		userDao.addUser(user);
 		return user;
 	}
@@ -89,10 +91,9 @@ public class UserService {
 	 * @throws AuthException
 	 */
 
-	public void updateUserByAmdinId(long userId, String password)
+	public void updateUserByUserId(User user)
 			throws AuthException {
-		String pwd = AuthUtils.getPassword(password);
-		userDao.updateUserByuserId(userId, pwd);
+		userDao.updateUserByUserId(user);
 	}
 
 	// ///////////////////////////////
@@ -107,18 +108,17 @@ public class UserService {
 	 * @param request
 	 * @throws IOException
 	 */
-	public void userLogin(String name, String password,
-			HttpServletRequest request) throws AuthException,
-			IOException {
-		UserVo user = userDao.getUserByName(name);
+	public void userLogin(String account, String password,
+			HttpServletRequest request) throws AuthException, IOException {
+		UserVo user = userDao.getUserByAccount(account);
 		if (user == null) {
-			throw new AuthException("邮箱或密码错误");
+			throw new AuthException("帐号或密码错误");
 		}
 		String loginPassword = AuthUtils.getPassword(password);
 		if (loginPassword.equals(user.getPassword())) {
 			HttpSession session = request.getSession();
 			user.setPassword("");
-			if (name.equals(PropertyUtils
+			if (account.equals(PropertyUtils
 					.getValue("shishuocms.user"))) {
 				user.setUser(true);
 			} else {
@@ -126,8 +126,8 @@ public class UserService {
 			}
 			session.setAttribute(SystemConstant.SESSION_ADMIN,
 					user);
-		} else {
-			throw new AuthException("邮箱或密码错误");
+		}else{
+			throw new AuthException("帐号或密码错误");
 		}
 	}
 
@@ -167,8 +167,7 @@ public class UserService {
 	public PageVo<User> getAllListPage(int pageNum) {
 		PageVo<User> pageVo = new PageVo<User>(pageNum);
 		pageVo.setRows(20);
-		List<User> list = this.getAllList(pageVo.getOffset(),
-				pageVo.getRows());
+		List<User> list = this.getAllList(pageVo.getOffset(), pageVo.getRows());
 		pageVo.setList(list);
 		pageVo.setCount(this.getAllListCount());
 		return pageVo;
@@ -180,13 +179,21 @@ public class UserService {
 	 * @param email
 	 * @return User
 	 */
-	public User getUserByName(String name) {
-		return userDao.getUserByName(name);
+	public User getUserByAccount(String account) {
+		return userDao.getUserByAccount(account);
 	}
 
 	public long getSuperAdminId() {
-		User user = getUserByName(PropertyUtils
-				.getValue("shishuocms.admin"));
+		User user = getUserByAccount(PropertyUtils.getValue("shishuocms.admin"));
 		return user.getUserId();
+	}
+
+	/**
+	 * 修改密码
+	 * @param userId
+	 * @param pwd
+	 */
+	public void updatePwd(long userId, String password) {
+		userDao.updatePwd(userId,password);
 	}
 }

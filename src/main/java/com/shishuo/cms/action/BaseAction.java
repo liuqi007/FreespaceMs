@@ -8,6 +8,8 @@ package com.shishuo.cms.action;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.shishuo.cms.entity.vo.JsonVo;
+import com.shishuo.cms.exception.ValidateException;
 import com.shishuo.cms.service.ArticleService;
 import com.shishuo.cms.service.FolderService;
 import com.shishuo.cms.service.HeadlineService;
@@ -33,4 +35,20 @@ public class BaseAction {
 	protected HeadlineService headlineService;
 
 	protected final Logger logger = Logger.getLogger(this.getClass());
+	
+	/**
+	 * 参数校验
+	 * 
+	 * @param json
+	 *            json数据Bean
+	 * @throws ValidateException
+	 */
+	protected <T> void validate(JsonVo<T> json) throws ValidateException {
+		if (json.getErrors().size() > 0) {
+			json.setResult(false);
+			throw new ValidateException("有错误发生");
+		} else {
+			json.setResult(true);
+		}
+	}
 }

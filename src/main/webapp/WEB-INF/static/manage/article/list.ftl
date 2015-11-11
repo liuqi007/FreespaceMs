@@ -37,10 +37,12 @@
 	<!--main content start-->
 	<section id="main-content">
 		<section class="wrapper">
+		
+			<!-- page start-->
 			<div class="row">
-	                  <div class="col-lg-12">
-	                      <!--breadcrumbs start -->
-	                      <ul class="breadcrumb">
+              <div class="col-lg-12">
+                  <!--breadcrumbs start -->
+                  <ul class="breadcrumb">
 					<li>
 						<a href="${BASE_PATH}/manage/article/list.htm">全部文章(${allCount})</a>
 					</li>
@@ -50,15 +52,15 @@
 					<li>
 						<a href="${BASE_PATH}/manage/article/list.htm?check=no">审核退回(${noCount})</a>
 					</li>
-	                      </ul>
-	                      <!--breadcrumbs end -->
-	                  </div>
-	              </div>
-        	<!-- page start-->
+                  </ul>
+                  <!--breadcrumbs end -->
+              </div>
+	        </div>
+	        
             <section class="panel">
-	                <header class="panel-heading">
-		                <div class="row">
-		                  		<div class="col-lg-4">
+                <header class="panel-heading">
+	                <div class="row">
+	                  	<div class="col-lg-4">
 							<ul class="breadcrumb" style="margin-bottom:0px;">
 								<li>
 									<a href="${BASE_PATH}/manage/article/list.htm">根目录</a>
@@ -69,12 +71,12 @@
 								</li>
 								</#list>
 							</ul>
-						   </div>
-						   <div class="col-lg-8">
-								<a class="btn btn-primary" style="float:right;" href="${BASE_PATH}/manage/article/add.htm?folderId=${folderId}">增加文章</a>
-						   </div>
-				</div>
-			</header>
+						</div>
+					   	<div class="col-lg-8">
+							<a class="btn btn-primary" style="float:right;" href="${BASE_PATH}/manage/article/add.htm?folderId=${folderId}">增加文章</a>
+					   	</div>
+					</div>
+				</header>
                 <div class="panel-body">
                 	<div class="adv-table">
                     	<div role="grid" class="dataTables_wrapper" id="hidden-table-info_wrapper">

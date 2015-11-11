@@ -1,12 +1,9 @@
 package com.shishuo.cms.util;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 import org.springframework.web.util.HtmlUtils;
-
-import freemarker.template.utility.HtmlEscape;
 
 /**
  * @author Herbert
