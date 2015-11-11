@@ -59,7 +59,7 @@ input.error:focus {
 	<div class="container">
 
 		<form class="form-signin" id="adminForm"
-			action="${BASE_PATH}/admin/login.json" autocomplete="off"
+			action="${BASE_PATH}/user/login.json" autocomplete="off"
 			method="post">
 			<h2 class="form-signin-heading">
 				<img src="${TEMPLATE_BASE_PATH}/images/logo.png"
@@ -79,8 +79,8 @@ input.error:focus {
 						placeholder="验证码" style="width: 100px; float: left;"> <img
 						id="captcha"
 						style="cursor: pointer; cursor: hand; margin-top: -13px;"
-						onclick="this.src='${BASE_PATH}/admin/captcha.htm?'+Math.random();"
-						src="${BASE_PATH}/admin/captcha.htm">
+						onclick="this.src='${BASE_PATH}/user/captcha.htm?'+Math.random();"
+						src="${BASE_PATH}/user/captcha.htm">
 				</div>
 				<div class="clearfix"></div>
 				<div>
@@ -130,7 +130,7 @@ input.error:focus {
 										if (data.msg == "change_captcha") {
 											$('#captcha').attr(
 													"src",
-													"${BASE_PATH}/admin/captcha.htm?"
+													"${BASE_PATH}/user/captcha.htm?"
 															+ Math.random());
 											$(
 													'#adminForm input[name="captcha"]')

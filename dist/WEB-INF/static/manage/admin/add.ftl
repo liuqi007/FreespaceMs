@@ -30,7 +30,7 @@
                             	 添加管理员
                           </header>
                           <div class="panel-body">
-                              <form id="add_admin_form" method="post" class="form-horizontal" autocomplete="off" action="${BASE_PATH}/manage/admin/addNew.json">
+                              <form id="add_admin_form" method="post" class="form-horizontal" autocomplete="off" action="${BASE_PATH}/user/addNew.json">
                               	<fieldset>
                                   <div class="form-group">
                                       <label class="col-sm-2 col-sm-2 control-label">管理员名称</label>

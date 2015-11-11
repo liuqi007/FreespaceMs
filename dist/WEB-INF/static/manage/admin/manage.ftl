@@ -28,32 +28,6 @@
 			<div class="col-lg-4">
 				<section class="panel">
 					<header class="panel-heading"> 添加管理员 </header>
-					<div class="panel-body">
-						 <form id="add_admin_form" method="post" class="form-horizontal" autocomplete="off" action="${BASE_PATH}/manage/admin/addNew.json">
-							<fieldset>
-								<div class="form-group">
-                                      <label class="col-sm-3 col-sm-3 control-label">名称</label>
-                                      <div class="col-sm-9">
-                                          <input type="text" class="form-control" name="adminName"
-                                            placeholder="管理员名称" id="adminName" >
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label class="col-sm-3 col-sm-3 control-label">密码</label>
-                                      <div class="col-sm-9">
-                                          <input type="password" class="form-control" name="password"
-                                            placeholder="管理员密码">
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                    <label class="col-sm-3 col-sm-3 control-label"></label>
-                                    <div class="col-sm-9">
-                                      <button class="btn btn-danger" type="submit">增加</button>
-                                    </div>
-                                  </div>		
-							</fieldset>
-						</form>
-					</div>
 				</section>
 			</div>
 			<div class="col-lg-8">
