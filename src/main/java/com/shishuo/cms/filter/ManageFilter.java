@@ -24,9 +24,9 @@ import com.shishuo.cms.entity.User;
 
 /**
  * 
- * 管理过滤器
+ * 登录管理过滤器
  * 
- * @author Herbert
+ * @author liuqi
  * 
  */
 public class ManageFilter implements Filter {
@@ -34,8 +34,6 @@ public class ManageFilter implements Filter {
 	protected final Logger logger = Logger.getLogger(this.getClass());
 
 	public void init(FilterConfig filterConfig) throws ServletException {
-		// TODO Auto-generated method stub
-
 	}
 
 	public void doFilter(ServletRequest servletRequest,
@@ -45,20 +43,20 @@ public class ManageFilter implements Filter {
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
 		User admin = (User) request.getSession().getAttribute(
 				SystemConstant.SESSION_ADMIN);
-		if (admin == null) {
+		if (admin == null
+				&& !request.getRequestURI().contains("/manage/user/login")
+				&& !request.getRequestURI().contains("/manage/user/captcha.htm")) {
 			String path = request.getContextPath();
 			String basePath = request.getScheme() + "://"
 					+ request.getServerName() + ":" + request.getServerPort()
 					+ path;
-			response.sendRedirect(basePath + "/user/login.htm");
+			response.sendRedirect(basePath + "/manage/user/login.htm");
 		} else {
 			chain.doFilter(request, response);
 		}
 	}
 
 	public void destroy() {
-		// TODO Auto-generated method stub
-
 	}
 
 }

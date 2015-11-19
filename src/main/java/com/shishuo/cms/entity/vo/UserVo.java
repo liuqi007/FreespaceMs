@@ -4,16 +4,4 @@ import com.shishuo.cms.entity.User;
 
 public class UserVo extends User {
 
-	private boolean isUser;
-
-	public boolean getIsUser() {
-		return isUser;
-	}
-
-	public void setUser(boolean isUser) {
-		this.isUser = isUser;
-	}
-	
-	
-
 }

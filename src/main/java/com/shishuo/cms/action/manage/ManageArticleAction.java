@@ -234,13 +234,13 @@ public class ManageArticleAction extends ManageBaseAction {
 			HttpServletRequest request) throws ArticleNotFoundException {
 		JsonVo<String> json = new JsonVo<String>();
 		UserVo admin = this.getAdmin(request);
-		if (!admin.getIsUser()) {
-			json.setResult(false);
-			json.setMsg("您不是超级管理员，无权该审核文件！");
-		} else {
+//		if (!admin.getIsUser()) {
+//			json.setResult(false);
+//			json.setMsg("您不是超级管理员，无权该审核文件！");
+//		} else {
 			articleService.updateCheck(articleId, check);
 			json.setResult(true);
-		}
+//		}
 		return json;
 	}
 

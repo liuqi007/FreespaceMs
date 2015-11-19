@@ -1,9 +1,3 @@
-/*
- *	Copyright © 2013 Changsha Shishuo Network Technology Co., Ltd. All rights reserved.
- *	长沙市师说网络科技有限公司 版权所有
- *	http://www.shishuo.com
- */
-
 package com.shishuo.cms.service;
 
 import java.io.IOException;
@@ -26,9 +20,9 @@ import com.shishuo.cms.util.AuthUtils;
 import com.shishuo.cms.util.PropertyUtils;
 
 /**
- * 管理员
+ * 用户管理service类
  * 
- * @author Administrator
+ * @author liuqi
  * 
  */
 @Service
@@ -118,12 +112,6 @@ public class UserService {
 		if (loginPassword.equals(user.getPassword())) {
 			HttpSession session = request.getSession();
 			user.setPassword("");
-			if (account.equals(PropertyUtils
-					.getValue("shishuocms.user"))) {
-				user.setUser(true);
-			} else {
-				user.setUser(false);
-			}
 			session.setAttribute(SystemConstant.SESSION_ADMIN,
 					user);
 		}else{
@@ -166,7 +154,7 @@ public class UserService {
 	 */
 	public PageVo<User> getAllListPage(int pageNum) {
 		PageVo<User> pageVo = new PageVo<User>(pageNum);
-		pageVo.setRows(20);
+		pageVo.setRows(10);
 		List<User> list = this.getAllList(pageVo.getOffset(), pageVo.getRows());
 		pageVo.setList(list);
 		pageVo.setCount(this.getAllListCount());
@@ -174,9 +162,9 @@ public class UserService {
 	}
 
 	/**
-	 * 通过email获得管理员资料
+	 * 通过帐号获得用户资料
 	 * 
-	 * @param email
+	 * @param account
 	 * @return User
 	 */
 	public User getUserByAccount(String account) {

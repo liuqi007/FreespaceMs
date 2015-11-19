@@ -1,9 +1,3 @@
-/*
- *	Copyright © 2013 Changsha Shishuo Network Technology Co., Ltd. All rights reserved.
- *	长沙市师说网络科技有限公司 版权所有
- *	http://www.shishuo.com
- */
-
 package com.shishuo.cms.action;
 
 import java.awt.image.BufferedImage;
@@ -32,12 +26,12 @@ import com.shishuo.cms.util.HttpUtils;
 import com.shishuo.cms.util.SSUtils;
 
 /**
- * @author Herbert
+ * @author liuqi
  * 
  */
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/manage/user")
 public class UserAction extends BaseAction {
 
 	/**
@@ -55,7 +49,7 @@ public class UserAction extends BaseAction {
 	}
 
 	@RequestMapping(value = "/logout.htm", method = RequestMethod.GET)
-	public String adminLogout(HttpServletRequest request, ModelMap modelMap) {
+	public String logout(HttpServletRequest request, ModelMap modelMap) {
 		request.getSession().removeAttribute(SystemConstant.SESSION_ADMIN);
 		return "redirect:" + HttpUtils.getBasePath(request);
 	}
@@ -139,7 +133,7 @@ public class UserAction extends BaseAction {
 			@RequestParam(value = "p", defaultValue = "1") int pageNum,
 			ModelMap modelMap) {
 		modelMap.put("pageVo", userService.getAllListPage(pageNum));
-		return "manage/admin/manage";
+		return "manage/user/manage";
 	}
 
 	
@@ -153,7 +147,7 @@ public class UserAction extends BaseAction {
 			@RequestParam(value = "p", defaultValue = "1") int pageNum,
 			ModelMap modelMap) {
 		modelMap.put("pageVo", userService.getAllListPage(pageNum));
-		return "manage/admin/all";
+		return "manage/user/all";
 	}
 
 	/**
@@ -168,7 +162,7 @@ public class UserAction extends BaseAction {
 		user.setAccount("");
 		user.setPassword("");
 		modelMap.put("updateUser", user);
-		return "manage/admin/add";
+		return "manage/user/add";
 	}
 	
 	/**
@@ -181,7 +175,7 @@ public class UserAction extends BaseAction {
 			ModelMap modelMap, HttpServletRequest request) {
 		User user = userService.getUserById(userId);
 		modelMap.put("updateUser", user);
-		return "manage/admin/add";
+		return "manage/user/add";
 	}
 	
 	/**
@@ -264,7 +258,7 @@ public class UserAction extends BaseAction {
 			ModelMap modelMap, HttpServletRequest request) {
 		User user = (User)request.getSession().getAttribute(SystemConstant.SESSION_ADMIN);
 		modelMap.put("user", user);
-		return "manage/admin/update";
+		return "manage/user/updatePwd";
 	}
 	
 	/**

@@ -14,7 +14,7 @@ import com.shishuo.cms.entity.User;
 import com.shishuo.cms.entity.vo.UserVo;
 
 /**
- * 管理员
+ * 用户
  * 
  * @author Zhangjiale
  */
@@ -27,7 +27,7 @@ public interface UserDao {
 	// ///////////////////////////////
 
 	/**
-	 * 添加管理员
+	 * 添加用户
 	 * 
 	 * @param User
 	 * @return Integer
@@ -40,7 +40,7 @@ public interface UserDao {
 	// ///////////////////////////////
 
 	/**
-	 * 删除管理员
+	 * 删除用户
 	 * 
 	 * @param userId
 	 * @return Integer
@@ -53,7 +53,7 @@ public interface UserDao {
 	// ///////////////////////////////
 
 	/**
-	 * 修改管理员的信息
+	 * 修改用户的信息
 	 * 
 	 * @param userId
 	 * @param name
@@ -66,7 +66,7 @@ public interface UserDao {
 	// ///////////////////////////////
 
 	/**
-	 * 获取所有管理员列表
+	 * 获取所有用户列表
 	 * 
 	 * @param offset
 	 * @param rows
@@ -77,7 +77,7 @@ public interface UserDao {
 			@Param("rows") long rows);
 
 	/**
-	 * 获取所有管理员的数量
+	 * 获取所有用户的数量
 	 * 
 	 * @return Integer
 	 * 
@@ -85,7 +85,7 @@ public interface UserDao {
 	public int getAllListCount();
 
 	/**
-	 * 通过Id获得指定管理员资料
+	 * 通过Id获得指定用户资料
 	 * 
 	 * @param userId
 	 * @return User
@@ -93,9 +93,9 @@ public interface UserDao {
 	public User getUserById(@Param("userId") long userId);
 
 	/**
-	 * 通过email获得指定的管理员
+	 * 通过帐号获得指定的用户
 	 * 
-	 * @param email
+	 * @param account
 	 * @return User
 	 * 
 	 */

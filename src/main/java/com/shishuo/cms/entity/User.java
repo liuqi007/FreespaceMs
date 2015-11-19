@@ -9,9 +9,9 @@ package com.shishuo.cms.entity;
 import java.util.Date;
 
 /**
- * 管理员实体
+ * 用户实体类
  * 
- * @author Administrator
+ * @author liuqi
  * 
  */
 
