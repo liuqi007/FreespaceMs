@@ -83,7 +83,9 @@
 				<ul class="sidebar-menu" id="nav-accordion">
 					<#list resoureTree as resource>
 					<li class="">
+						<#if resource.url!="/">
 						<a <#if menu="${resource.url}">class="active"</#if> href="${BASE_PATH}${resource.url}"> <i class="${resource.iconcss}"></i> <span>${resource.name}</span></a>
+						</#if>
 					</li>
 					</#list>
 				</ul>

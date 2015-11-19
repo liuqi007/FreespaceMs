@@ -13,6 +13,14 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户表';
 INSERT INTO `user` VALUES (1,'freespacems','freespacems','e146e03ea5cc80ecafd41104bbe54aa9','2012-08-08 00:00:00','2012-08-08 00:00:00');
 
+CREATE TABLE `role` (
+  `roleId` bigint(10) NOT NULL AUTO_INCREMENT COMMENT '角色ID',
+  `name` varchar(50) DEFAULT NULL COMMENT '用户名称',
+  `isUse` integer DEFAULT 0 COMMENT '0:启用   1:不启用',
+  `createTime` datetime COMMENT '创建时间',
+  PRIMARY KEY (`roleId`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='角色表';
+
 CREATE TABLE `resource` (
   `resId` bigint(10) NOT NULL AUTO_INCREMENT COMMENT '资源ID',
   `parentResId` bigint(10) DEFAULT NULL COMMENT '上级资源ID',
@@ -26,9 +34,10 @@ CREATE TABLE `resource` (
   `sort` integer DEFAULT 0 COMMENT '排序字段',
    PRIMARY KEY (`resId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='资源表';
-INSERT INTO `resource` VALUES (1,0,'用户管理','/user/manage.htm','icon-user',0,0,now(),now(),0);
-INSERT INTO `resource` VALUES (2,0,'菜单管理','/manage/admin/resource.htm','icon-user',0,0,now(),now(),0);
-INSERT INTO `resource` VALUES (3,0,'文章管理','/manage/article/list.htm','icon-book',0,0,now(),now(),0);
+INSERT INTO `resource` VALUES (2,1,'用户管理','/manage/user/manage.htm','icon-user',0,0,now(),now(),0);
+INSERT INTO `resource` VALUES (3,1,'资源管理','/manage/resource/manage.htm','icon-user',0,0,now(),now(),0);
+INSERT INTO `resource` VALUES (4,1,'文章管理','/manage/article/list.htm','icon-book',0,0,now(),now(),0);
+INSERT INTO `resource` VALUES (5,1,'角色管理','/manage/role/manage.htm','icon-user',0,0,now(),now(),0);
 
 CREATE TABLE `article` (
   `articleId` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '文件ID',

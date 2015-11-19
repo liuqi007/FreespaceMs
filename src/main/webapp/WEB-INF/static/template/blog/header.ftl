@@ -32,12 +32,8 @@
 	<div class="blog-masthead">
 		<div class="container">
 			<nav class="blog-nav">
-			<@shishuo_folder_list_tag folderId= 0>
 			<a class="blog-nav-item <#if 0==g_folderId>active</#if>" href="${BASE_PATH}/index.htm">首页</a>
-	                <#list tag_folder_list as tag_folder>
-	                	<a class="blog-nav-item <#if tag_folder.folderId==g_folderId>active</#if>" href="<@shishuo_folder_url_tag folderId=tag_folder.folderId/>">${tag_folder.name}</a>
-			</#list>
-           		</@shishuo_folder_list_tag>
+	                	<a class="blog-nav-item active" href=""></a>
 			</nav>
 		</div>
 	</div>

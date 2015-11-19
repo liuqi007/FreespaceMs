@@ -1,5 +1,5 @@
-<#assign menu="user">
-<#assign submenu="add_user">
+<#assign menu="admin_list">
+<#assign submenu="add_admin">
 <#include "/manage/head.ftl">
 <style type="text/css">
 .m-bot15 {
@@ -27,21 +27,43 @@
                   <div class="col-lg-12">
                       <section class="panel">
                           <header class="panel-heading">
-                            	 添加用户
+                          		<#if updateUser.userId!=0>
+	                          		修改用户
+	                          	<#else>
+	                            	 添加用户
+	                          	</#if>
                           </header>
                           <div class="panel-body">
-                              <form id="add_user_form" method="post" class="form-horizontal" autocomplete="off" action="${BASE_PATH}/manage/user/addNew.json">
+                              <form id="add_admin_form" method="post" class="form-horizontal" autocomplete="off" action="${BASE_PATH}/manage/user/<#if updateUser.userId!=0>update.json<#else>addNew.json</#if>">
                               	<fieldset>
                                   <div class="form-group">
-                                      <label class="col-sm-2 col-sm-2 control-label">用户名称</label>
+                                      <label class="col-sm-2 col-sm-2 control-label">用户帐号</label>
                                       <div class="col-sm-10">
-                                          <input type="text" class="form-control" name="userName"
-                                          	placeholder="用户名称" id="userName" vaule="${userName}">
+                                      	  <input type="hidden" id="userId" name="userId" value="${updateUser.userId}"/>
+                                          <input type="text" class="form-control" name="account"
+                                          	placeholder="用户帐号" id="email" value="${updateUser.account}" maxlength="50" <#if updateUser.userId!=0>readonly="true"</#if>>
                                       </div>
                                   </div>
                                   <div class="form-group">
+                                      <label class="col-sm-2 col-sm-2 control-label">用户姓名</label>
+                                      <div class="col-sm-10">
+                                          <input type="text" class="form-control" name="name"
+                                          	placeholder="用户姓名" id="name" value="${updateUser.name}"  maxlength="50">
+                                      </div>
+                                  </div>
+                                  <#if updateUser.userId=0>
+                                  <div class="form-group">
+                                      <label class="col-sm-2 col-sm-2 control-label">帐号密码</label>
+                                      <div class="col-sm-10">
+                                          <input type="password" class="form-control" name="password"
+                                          	placeholder="帐号密码" value="${updateUser.password}">
+                                      </div>
+                                  </div>
+                                  </#if>
+                                  <div class="form-group">
                                   	<label class="col-sm-2 col-sm-2 control-label"></label>
-                                      <button class="btn btn-danger" type="submit">增加</button>
+                                      <button class="btn btn-danger" type="submit"><#if updateUser.userId!=0>修改<#else>新增</#if></button>
+                                      <button class="btn btn-info" type="button" onclick="history.go(-1);">返回</button>
                                   </div>
                                  </fieldset>
                               </form>
@@ -55,7 +77,7 @@
 		<!--main content end-->
 <script type="text/javascript">
 	$(function() {
-		$('#add_user_form').ajaxForm({
+		$('#add_admin_form').ajaxForm({
 			dataType : 'json',
 			success : function(data) {
 				if (data.result) {
@@ -63,7 +85,7 @@
 						window.location.reload();
 					});
 				}else{
-					showErrors($('#add_user_form'),data.errors);
+					showErrors($('#add_admin_form'),data.errors);
 				}
 			}
 		});

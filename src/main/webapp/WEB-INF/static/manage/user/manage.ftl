@@ -1,6 +1,6 @@
-<#assign menu="/manage/admin/manage.htm">
+<#assign menu="/manage/user/manage.htm">
 <#assign submenu="admin_list">
-<#include "/manage/head.ftl">		
+<#include "/manage/head.ftl">	
 <style type="text/css">
 .pagination {
 	border-radius: 4px;
@@ -37,7 +37,7 @@
 					</ul>
 				</div>
 			   	<div class="col-lg-8">
-					<a class="btn btn-primary" style="float:right;" href="${BASE_PATH}/user/add.htm">增加用户</a>
+					<a class="btn btn-primary" style="float:right;" href="${BASE_PATH}/manage/user/add.htm">增加用户</a>
 			   	</div>
 			   </div>
 			</header>
@@ -63,7 +63,7 @@
 		                       <a href="javascript:void(0);" userId="${e.userId}" title="删除" class="js_delete_admin">
 		                                                                                              删除
 		                        </a>|
-		                        <a href="${BASE_PATH}/user/update.htm?userId=${e.userId}" title="修改">
+		                        <a href="${BASE_PATH}/manage/user/update.htm?userId=${e.userId}" title="修改">
 		                        	修改
 		                        </a>|
 		                        <a href="${BASE_PATH}/manage/adminFolder/manage.htm?userId=${e.userId}" title="权限">
@@ -75,7 +75,7 @@
                         </tbody>
                       </table>
                       <div style="height: 30px;">
-                      <div class="pagination">${pageVo.pageNumHtml}</div>
+                      	  <div class="pagination">${pageVo.pageNumHtml}</div>          
                       </div>
                    </div>
 				</div>
@@ -103,14 +103,14 @@
 		$('.js_delete_admin').click(function() {
 		var userId= $(this).attr('userId');
         bootbox.dialog({
-            message: "是否" + $(this).attr('title') + "管理员",
+            message: "是否" + $(this).attr('title') + "用户",
             title: "提示",
             buttons: {
                 "delete": {
                     label: "删除",
                     className: "btn-success",
                     callback: function() {
-                        $.post("${BASE_PATH}/user/delete.json", {
+                        $.post("${BASE_PATH}/manage/user/delete.json", {
                             "userId": userId
                         },
                         function(data) {
