@@ -18,4 +18,6 @@ public interface ResourceDao {
 	public List<ResourceVo> getResourceListById(@Param("resId") long resId);
 
 	public List<ResourceVo> getAllList();
+
+	public void updateResourceByresId(Resource resource);
 }

@@ -6,7 +6,8 @@ public class ResourceVo extends Resource {
 	private long id;
 	private long pId;
 	private boolean open;
-	private boolean nocheck;
+	private boolean nocheck = true;
+	private String link;
 	
 	public long getId() {
 		return id;
@@ -32,4 +33,11 @@ public class ResourceVo extends Resource {
 	public void setNocheck(boolean nocheck) {
 		this.nocheck = nocheck;
 	}
+	public String getLink() {
+		return link;
+	}
+	public void setLink(String link) {
+		this.link = link;
+	}
+	
 }

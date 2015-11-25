@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.shishuo.cms.exception.TemplateNotFoundException;
-
 /**
  * 首页
  * 
@@ -46,15 +44,16 @@ public class IndexAction extends BaseAction {
 	@RequestMapping(value = "/index.htm", method = RequestMethod.GET)
 	public String home(@RequestParam(value = "p", defaultValue = "1") long p,
 			ModelMap modelMap) {
-		try {
-			modelMap.addAttribute("p", p);
-			modelMap.addAttribute("g_folderId", 0);
-			return themeService.getDefaultTemplate();
-		} catch (TemplateNotFoundException e) {
-			modelMap.addAttribute("g_folderId", 0);
-			logger.fatal(e.getMessage());
-			return themeService.get404();
-		}
+//		try {
+//			modelMap.addAttribute("p", p);
+//			modelMap.addAttribute("g_folderId", 0);
+//			return themeService.getDefaultTemplate();
+//		} catch (TemplateNotFoundException e) {
+//			modelMap.addAttribute("g_folderId", 0);
+//			logger.fatal(e.getMessage());
+//			return themeService.get404();
+//		}
+		return "/manage/login";
 	}
 
 	/**

@@ -46,4 +46,14 @@ public class SystemConstant {
 	 */
 	public static final String LANGUAGE = "language";
 
+	/**
+	 * 默认文件夹样式
+	 */
+	public static final String DEFAULT_STYLE = "icon-user";
+
+	/**
+	 * 资源类型：0:菜单 1:按钮
+	 */
+	public static final int RESOURCE_TYPE_MENU = 0;
+	public static final int RESOURCE_TYPE_BTN = 1;
 }

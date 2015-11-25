@@ -1,6 +1,5 @@
 package com.shishuo.cms.service;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.shishuo.cms.dao.ResourceDao;
 import com.shishuo.cms.entity.Resource;
 import com.shishuo.cms.entity.vo.ResourceVo;
+import com.shishuo.cms.exception.AuthException;
 
 @Service
 public class ResourceService {
@@ -19,13 +19,16 @@ public class ResourceService {
 	private ResourceDao resourceDao;
 
 	@CacheEvict(value = "resource", allEntries = true)
-	public Resource addResource(long resId, long folderId) {
-		Resource resource = new Resource();
-		resource.setCreateTime(new Date());
+	public Resource addResource(Resource resource) {
 		resourceDao.addResource(resource);
 		return resource;
 	}
 
+	public void updateResourceByresId(Resource resource)
+			throws AuthException {
+		resourceDao.updateResourceByresId(resource);
+	}
+	
 	@CacheEvict(value = "resource", allEntries = true)
 	public int deleteResource(long resId) {
 		return resourceDao.deleteResource(resId);

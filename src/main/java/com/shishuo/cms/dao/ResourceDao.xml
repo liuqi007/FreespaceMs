@@ -9,8 +9,8 @@
 
 	<insert id="addResource" parameterType="com.shishuo.cms.entity.Resource">
 		insert into
-		resource(name,password,createTime,updatetime)
-		value(#{name},#{password},#{createTime},#{updateTime})
+		resource(parentResId,name,url,iconcss,type,isUse,sort,createTime,updatetime)
+		value(#{parentResId},#{name},#{url},#{iconcss},#{type},#{isUse},#{sort},#{createTime},#{updateTime})
 		<selectKey resultType="long" keyProperty="resId">
 			SELECT
 			LAST_INSERT_ID()
@@ -31,8 +31,8 @@
 	<!-- ###### 修改 ###### -->
 	<!-- ############################## -->
 
-	<update id="updateResouceByresouceId">
-		update resource set password=#{password}
+	<update id="updateResourceByresId">
+		update resource set updateTime=#{updateTime},name=#{name},isUse=#{isUse}
 		where
 		resId=#{resId}
 	</update>

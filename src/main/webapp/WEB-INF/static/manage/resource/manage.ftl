@@ -14,7 +14,7 @@
 				<!--breadcrumbs start -->
 				<ul class="breadcrumb">
 					<li>
-						<a href="http://localhost:8080/byvision/manage/folder/page.htm?folderId=0"><i class="icon-home"></i>资源管理</a>
+						<a href="http://localhost/manage/resource/manage.htm"><i class="icon-home"></i>资源管理</a>
 					</li>
 				</ul>
 				<!--breadcrumbs end -->
@@ -35,13 +35,10 @@
 			</header>
 			<div class="panel-body">
 				<div class="col-lg-4">
-					<ul id="treeDemo" class="ztree"></ul>
-					 <div class="form-group" style="margin-left:25px">
-                          <button class="btn btn-info" type="submit">增加</button>
-                          <button class="btn btn-info" type="button">修改</button>
-                          <button class="btn btn-info" type="submit">删除</button>
-                      </div>
-                      <div class="form-group" style="margin-left:55px">
+					<ul id="treeDemo" class="ztree" style="width:228px"></ul>
+					 <div class="form-group">
+                          <button class="btn btn-info" type="button" id="btnAdd">增加</button>
+                          <button class="btn btn-info" type="button" id="btnDel">删除</button>
                           <button class="btn btn-danger" type="submit">上移</button>
                           <button class="btn btn-danger" type="submit">下移</button>
                       </div>
@@ -49,23 +46,42 @@
 				<div class="col-lg-8">
                   <div class="col-lg-12">
                       <section class="panel">
-                          <header class="panel-heading">
-	                            	 添加角色
+                          <header class="panel-heading addOrEditRes">
+	                       		修改资源
                           </header>
                           <div class="panel-body">
-                              <form id="add_admin_form" method="post" class="form-horizontal" autocomplete="off" action="">
+                              <form id="add_admin_form" method="post" class="form-horizontal" autocomplete="off" action="${BASE_PATH}/manage/resource/addOrUpdate.json">
+                              	<input type="hidden" name="resId" id="resId" />
+                              	<input type="hidden" name="parentResId" id="parentResId" />
+                              	<input type="hidden" name="iconcss" id="iconcss" />
+                              	<input type="hidden" name="type" id="type" />
+                              	<input type="hidden" name="sort" id="sort" />
                               	<fieldset>
                                   <div class="form-group">
-                                      <label class="col-sm-2 col-sm-2 control-label">角色名称</label>
+                                      <label class="col-sm-2 col-sm-2 control-label">资源名称</label>
                                       <div class="col-sm-10">
-                                          <input type="text" class="form-control" name="name"
-                                          	placeholder="角色名称" id="name" value="" maxlength="50">
+                                          <input type="text" class="form-control" name="name" id="name" value="" maxlength="50">
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="col-sm-2 col-sm-2 control-label">资源连接</label>
+                                      <div class="col-sm-10">
+                                          <input type="text" class="form-control" name="url" id="url" value="" maxlength="50">
+                                      </div>
+                                  </div>
+                                   <div class="form-group">
+                                      <label class="col-sm-2 col-sm-2 control-label">是否启用</label>
+                                      <div class="col-sm-2">
+                                          <select id="isUse" name="isName" class="form-control">
+											  <option value=""></option>
+											  <option value="0">是</option>
+											  <option value="1">否</option>
+											</select>
                                       </div>
                                   </div>
                                   <div class="form-group">
                                   	<label class="col-sm-2 col-sm-2 control-label"></label>
-                                      <button class="btn btn-danger" type="submit">新增</button>
-                                      <button class="btn btn-info" type="button" onclick="history.go(-1);">返回</button>
+                                      <button class="btn btn-danger" type="submit" id="btnSubmit">确定</button>
                                   </div>
                                  </fieldset>
                               </form>
@@ -93,7 +109,8 @@
 				}
 			},
 			callback: {
-				beforeCheck: beforeCheck
+				beforeCheck: beforeCheck,
+				onClick: selectNode
 			}
 		};
 
@@ -144,22 +161,26 @@
 			$("#autoCheckTriggerValue").html(zTree.setting.check.autoCheckTrigger ? "true" : "false");
 		}
 
-		$(document).ready(function(){
-			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
-			$("#checkTrue").bind("click", {type:"checkTrue"}, checkNode);
-			$("#checkFalse").bind("click", {type:"checkFalse"}, checkNode);
-			$("#toggle").bind("click", {type:"toggle"}, checkNode);
-			$("#checkTruePS").bind("click", {type:"checkTruePS"}, checkNode);
-			$("#checkFalsePS").bind("click", {type:"checkFalsePS"}, checkNode);
-			$("#togglePS").bind("click", {type:"togglePS"}, checkNode);
-			$("#checkAllTrue").bind("click", {type:"checkAllTrue"}, checkNode);
-			$("#checkAllFalse").bind("click", {type:"checkAllFalse"}, checkNode);
-
-			$("#autoCallbackTrigger").bind("change", {}, setAutoTrigger);
-		});
-
+		function selectNode(e){
+			var node = $.fn.zTree.getZTreeObj("treeDemo").getSelectedNodes();
+			if(node[0].id==1){
+				$("#btnSubmit").attr("disabled","disabled");
+			}else{
+				$("#btnSubmit").removeAttr("disabled");
+			}
+			$("#resId").val(node[0].id);
+			$("#name").val(node[0].name);
+			$("#url").val(node[0].link);
+			$("#parentResId").val(node[0].parentResId);
+			$("#isUse").val(node[0].isUse);
+			$("#iconcss").val(node[0].iconcss);
+            $("#type").val(node[0].type);
+            $("#sort").val(node[0].sort);
+		}
 
 	$(function() {
+		$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+	
 		$('#add_admin_form').ajaxForm({
 			dataType : 'json',
 			success : function(data) {
@@ -173,18 +194,37 @@
 			}
 		});
 		
-		$('.js_delete_admin').click(function() {
-		var roleId= $(this).attr('roleId');
+		$('#btnAdd').click(function() {
+			var node = $.fn.zTree.getZTreeObj("treeDemo").getSelectedNodes();
+			if(!node[0]){
+				bootbox.alert({message: "请选择父节点",title: "提示"});
+	            return;
+			}
+			$("#parentResId").val(node[0].id);
+			$("#resId").val(0);
+			$("#name").val("");
+			$("#url").val("");
+			$("#isUse").val("");
+			$(".addOrEditRes").text("添加资源");
+		});
+		
+		$('#btnDel').click(function() {
+			var resId= $("#resId").val();
+			var name= $("#name").val();
+			if(!resId){
+				bootbox.alert({message: "请选择要删除的资源",title: "提示"});
+	            return;
+			}
         bootbox.dialog({
-            message: "是否" + $(this).attr('title') + "资源",
+            message: "是否确定删除【" + name + "】资源",
             title: "提示",
             buttons: {
                 "delete": {
                     label: "删除",
                     className: "btn-success",
                     callback: function() {
-                        $.post("${BASE_PATH}/manage/role/delete.json", {
-                            "roleId": roleId
+                        $.post("${BASE_PATH}/manage/resource/delete.json", {
+                            "resId": resId
                         },
                         function(data) {
                             if (data.result) {
