@@ -52,6 +52,10 @@ public class ResourceAction extends BaseAction {
 				node.setLink(resourceVo.getUrl());
 				node.setCreateTime(resourceVo.getCreateTime());
 				node.setIconcss(resourceVo.getIconcss());
+				node.setType(resourceVo.getType());
+				if(SystemConstant.RESOURCE_TYPE_DIR == node.getType()){
+					node.setIsParent(true);
+				}
 				tree.add(node);
 			}
 			ResourceVo root = new ResourceVo();
@@ -77,14 +81,15 @@ public class ResourceAction extends BaseAction {
 	@RequestMapping(value = "/addOrUpdate.json", method = RequestMethod.POST)
 	public JsonVo<String> addOrUpdate(Resource resource) {
 		JsonVo<String> json = new JsonVo<String>();
-
 		try {
 			long resId = resource.getResId();
 			if (resId == 0) {// 添加
 				resource.setCreateTime(new Date());
 				resource.setUpdateTime(new Date());
 				resource.setIconcss(SystemConstant.DEFAULT_STYLE);
-				resource.setType(SystemConstant.RESOURCE_TYPE_MENU);
+				if(SystemConstant.RESOURCE_TYPE_DIR == resource.getType()){
+					resource.setUrl("/");
+				}
 				validate(json);
 				resourceService.addResource(resource);
 			} else if (resId == 1) {// 根节点
@@ -115,6 +120,9 @@ public class ResourceAction extends BaseAction {
 			HttpServletRequest request) {
 		JsonVo<String> json = new JsonVo<String>();
 		try {
+			//删除下级节点
+			resourceService.deleteResourceByParentId(resId);
+			//删除本节点
 			resourceService.deleteResource(resId);
 			json.setResult(true);
 		} catch (Exception e) {

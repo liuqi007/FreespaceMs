@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shishuo.cms.dao.UserRoleRelDao">
+
+	<!-- ############################## -->
+	<!-- ###### 增加 ###### -->
+	<!-- ############################## -->
+
+	<insert id="addUserRoleRel" parameterType="com.shishuo.cms.entity.UserRoleRel">
+		insert into
+		user_role_rel(userId,roleId,createTime)
+		value(#{userId},#{roleId},#{createTime})
+	</insert>
+
+	<!-- ############################## -->
+	<!-- ###### 删除 ###### -->
+	<!-- ############################## -->
+
+	<delete id="deleteUserRoleRel" parameterType="long">
+		delete from user_role_rel where
+		roleId=#{roleId}
+	</delete>
+
+	<!-- ############################## -->
+	<!-- ###### 查询 ###### -->
+	<!-- ############################## -->
+	<select id="getAllListCount" resultType="int">
+		select count(*) from
+		user_role_rel
+	</select>
+
+	<select id="getUserRoleRelById" parameterType="long"
+		resultType="com.shishuo.cms.entity.UserRoleRel">
+		select * from user_role_rel where userId=#{userId}
+	</select>
+</mapper>  

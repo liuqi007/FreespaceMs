@@ -19,7 +19,7 @@
 				<!--breadcrumbs start -->
 				<ul class="breadcrumb">
 					<li>
-						<a href="http://localhost:8080/byvision/manage/folder/page.htm?folderId=0"><i class="icon-home"></i>用户管理</a>
+						<a href="http://localhost:8080/byvision/manage/folder/page.htm?folderId=0"><i class="icon-home">用户管理</i></a>
 					</li>
 				</ul>
 				<!--breadcrumbs end -->
@@ -66,8 +66,8 @@
 		                        <a href="${BASE_PATH}/manage/user/update.htm?userId=${e.userId}" title="修改">
 		                        	修改
 		                        </a>|
-		                        <a href="${BASE_PATH}/manage/adminFolder/manage.htm?userId=${e.userId}" title="权限">
-		                        	权限
+		                        <a href="${BASE_PATH}/manage/userrolerel/asign.htm?userId=${e.userId}" title="分配角色">
+		                        	分配角色
 		                        </a>
 		                    	</td>
                           	</tr>

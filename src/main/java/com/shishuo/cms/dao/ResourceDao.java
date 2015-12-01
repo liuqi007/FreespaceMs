@@ -15,9 +15,12 @@ public interface ResourceDao {
 
 	public int deleteResource(@Param("resId") long resId);
 
+	public int deleteResourceByParentId(@Param("resId") long resId);
+	
 	public List<ResourceVo> getResourceListById(@Param("resId") long resId);
 
 	public List<ResourceVo> getAllList();
 
 	public void updateResourceByresId(Resource resource);
+
 }

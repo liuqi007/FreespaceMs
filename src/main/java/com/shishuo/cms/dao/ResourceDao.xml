@@ -26,6 +26,12 @@
 		where
 		resId=#{resId}
 	</delete>
+	
+	<delete id="deleteResourceByParentId" parameterType="long">
+		delete from resource
+		where
+		parentResId=#{resId}
+	</delete>
 
 	<!-- ############################## -->
 	<!-- ###### 修改 ###### -->

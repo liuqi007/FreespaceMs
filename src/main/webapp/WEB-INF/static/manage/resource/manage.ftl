@@ -54,7 +54,6 @@
                               	<input type="hidden" name="resId" id="resId" />
                               	<input type="hidden" name="parentResId" id="parentResId" />
                               	<input type="hidden" name="iconcss" id="iconcss" />
-                              	<input type="hidden" name="type" id="type" />
                               	<input type="hidden" name="sort" id="sort" />
                               	<fieldset>
                                   <div class="form-group">
@@ -64,12 +63,22 @@
                                       </div>
                                   </div>
                                   <div class="form-group">
+                                      <label class="col-sm-2 col-sm-2 control-label">资源类型</label>
+                                      <div class="col-sm-3">
+                                          <select id="type" name="type" class="form-control">
+											  <option value=""></option>
+											  <option value="0">菜单</option>
+											  <option value="2">目录</option>
+											</select>
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
                                       <label class="col-sm-2 col-sm-2 control-label">资源连接</label>
                                       <div class="col-sm-10">
                                           <input type="text" class="form-control" name="url" id="url" value="" maxlength="50">
                                       </div>
                                   </div>
-                                   <div class="form-group">
+                                  <div class="form-group">
                                       <label class="col-sm-2 col-sm-2 control-label">是否启用</label>
                                       <div class="col-sm-2">
                                           <select id="isUse" name="isName" class="form-control">
@@ -175,6 +184,13 @@
 			$("#isUse").val(node[0].isUse);
 			$("#iconcss").val(node[0].iconcss);
             $("#type").val(node[0].type);
+            if(node[0].type==2){//目录
+				$("input[name='url']").attr("disabled","disabled");
+				$("select[name='type']").attr("disabled","disabled");
+			}else{
+				$("input[name='url']").removeAttr("disabled");
+				$("select[name='type']").removeAttr("disabled");
+			}
             $("#sort").val(node[0].sort);
 		}
 
@@ -194,16 +210,34 @@
 			}
 		});
 		
+		$("select[id='type']").change(function(){
+			if($(this).val()==2){//目录
+				$("input[name='url']").attr("disabled","disabled");
+			}else{
+				$("input[name='url']").removeAttr("disabled");
+			}
+		});
+		
 		$('#btnAdd').click(function() {
+			$("input[name='url']").removeAttr("disabled");
+			$("select[name='type']").removeAttr("disabled");
 			var node = $.fn.zTree.getZTreeObj("treeDemo").getSelectedNodes();
 			if(!node[0]){
 				bootbox.alert({message: "请选择父节点",title: "提示"});
 	            return;
 			}
+			
+			if(node[0].pId!=1){
+				bootbox.alert({message: "目前只支持二级层次",title: "提示"});
+	            return;
+			}
+			
+			$("#btnSubmit").removeAttr("disabled");
 			$("#parentResId").val(node[0].id);
 			$("#resId").val(0);
 			$("#name").val("");
 			$("#url").val("");
+			$("#type").val("");
 			$("#isUse").val("");
 			$(".addOrEditRes").text("添加资源");
 		});
@@ -211,12 +245,17 @@
 		$('#btnDel').click(function() {
 			var resId= $("#resId").val();
 			var name= $("#name").val();
+			var type= $("#type").val();
+			var msg = "是否确定删除【" + name + "】资源";
+			if(type==2){
+			    msg = "删除目录["+name+"]，将删除目录下所有的资源";
+			}
 			if(!resId){
 				bootbox.alert({message: "请选择要删除的资源",title: "提示"});
 	            return;
 			}
         bootbox.dialog({
-            message: "是否确定删除【" + name + "】资源",
+            message: msg,
             title: "提示",
             buttons: {
                 "delete": {

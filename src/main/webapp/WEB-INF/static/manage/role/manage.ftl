@@ -66,7 +66,7 @@
 		                        <a href="${BASE_PATH}/manage/role/update.htm?roleId=${e.roleId}" title="修改">
 		                        	修改
 		                        </a>|
-		                        <a href="${BASE_PATH}/manage/adminFolder/manage.htm?roleId=${e.roleId}" title="分配菜单权限">
+		                        <a href="${BASE_PATH}/manage/roleresourcerel/asign.htm?roleId=${e.roleId}" title="分配菜单权限">
 		                        	分配菜单权限
 		                        </a>
 		                    	</td>

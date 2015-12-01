@@ -30,6 +30,11 @@ public class ResourceService {
 	}
 	
 	@CacheEvict(value = "resource", allEntries = true)
+	public int deleteResourceByParentId(long resId) {
+		return resourceDao.deleteResourceByParentId(resId);
+	}
+	
+	@CacheEvict(value = "resource", allEntries = true)
 	public int deleteResource(long resId) {
 		return resourceDao.deleteResource(resId);
 	}
@@ -44,4 +49,5 @@ public class ResourceService {
 				.getResourceListById(resId);
 		return list;
 	}
+
 }

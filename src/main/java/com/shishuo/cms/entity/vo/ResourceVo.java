@@ -8,7 +8,8 @@ public class ResourceVo extends Resource {
 	private boolean open;
 	private boolean nocheck = true;
 	private String link;
-	
+	private boolean checked = false;
+	private boolean isParent = false;
 	public long getId() {
 		return id;
 	}
@@ -39,5 +40,16 @@ public class ResourceVo extends Resource {
 	public void setLink(String link) {
 		this.link = link;
 	}
-	
+	public boolean isChecked() {
+		return checked;
+	}
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+	public boolean getIsParent() {
+		return isParent;
+	}
+	public void setIsParent(boolean isParent) {
+		this.isParent = isParent;
+	}
 }

@@ -82,13 +82,29 @@
 				<!-- sidebar menu goes here-->
 				<ul class="sidebar-menu" id="nav-accordion">
 					<#list resoureTree as resource>
-					<li class="">
+					<li class="main">
 						<#if resource.url!="/">
 						<a <#if menu="${resource.url}">class="active"</#if> href="${BASE_PATH}${resource.url}"> <i class="${resource.iconcss}"></i> <span>${resource.name}</span></a>
 						</#if>
+						<!--ul>    
+                			<li><a href="#">菜单11</a></li>    
+                			<li><a href="#">菜单12</a></li>    
+           				 </ul-->    
 					</li>
 					</#list>
 				</ul>
 			</div>
 		</aside>
 		<!--sidebar end-->		
+	<script type="text/javascript">
+	<!--
+	$(function() {   
+    // 针对纵向菜单，只要点击后显示或隐藏即可   
+    $(".main > a").click(function() {   
+        var ulNode = $(this).next("ul");   
+        ulNode.slideToggle("slow");   
+    });   
+});--> 
+
+
+	</script>

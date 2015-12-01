@@ -52,8 +52,9 @@ public class SystemConstant {
 	public static final String DEFAULT_STYLE = "icon-user";
 
 	/**
-	 * 资源类型：0:菜单 1:按钮
+	 * 资源类型：0:菜单 1:按钮 2:目录
 	 */
 	public static final int RESOURCE_TYPE_MENU = 0;
 	public static final int RESOURCE_TYPE_BTN = 1;
+	public static final int RESOURCE_TYPE_DIR = 2;
 }

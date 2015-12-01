@@ -39,6 +39,20 @@ INSERT INTO `resource` VALUES (3,1,'资源管理','/manage/resource/manage.htm',
 INSERT INTO `resource` VALUES (4,1,'文章管理','/manage/article/list.htm','icon-book',0,0,now(),now(),0);
 INSERT INTO `resource` VALUES (5,1,'角色管理','/manage/role/manage.htm','icon-user',0,0,now(),now(),0);
 
+CREATE TABLE `user_role_rel` (
+  `userId` bigint(10) NOT NULL COMMENT '用户ID',
+  `roleId` bigint(10) NOT NULL COMMENT '角色ID',
+  `createTime` datetime COMMENT '创建时间',
+  PRIMARY KEY (`userId`,`roleId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户角色关联表';
+
+CREATE TABLE `role_resource_rel` (
+  `roleId` bigint(10) NOT NULL COMMENT '角色ID',
+  `resId` bigint(10) NOT NULL COMMENT '资源ID',
+  `createTime` datetime COMMENT '创建时间',
+  PRIMARY KEY (`roleId`,`resId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='角色资源关联表';
+
 CREATE TABLE `article` (
   `articleId` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '文件ID',
   `folderId` bigint(20) DEFAULT NULL,
