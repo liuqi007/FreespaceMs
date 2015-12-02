@@ -83,13 +83,16 @@
 				<ul class="sidebar-menu" id="nav-accordion">
 					<#list resoureTree as resource>
 					<li class="main">
-						<#if resource.url!="/">
-						<a <#if menu="${resource.url}">class="active"</#if> href="${BASE_PATH}${resource.url}"> <i class="${resource.iconcss}"></i> <span>${resource.name}</span></a>
+						<#if resource.type=2>
+						<a class="active" href="#"> <i class="${resource.iconcss}"></i> <span style="font-size:16px">${resource.name}</span></a>
 						</#if>
-						<!--ul>    
-                			<li><a href="#">菜单11</a></li>    
-                			<li><a href="#">菜单12</a></li>    
-           				 </ul-->    
+						<ul style="text-indent:1em;"> 
+							<#list resoureTree as child>  
+							 <#if child.parentResId=resource.resId>
+                			<li><a href="${BASE_PATH}${child.url}"  <#if menu="${resource.url}">class="active"</#if>>${child.name}</a></li> 
+                			</#if>
+                			</#list>
+           				 </ul>    
 					</li>
 					</#list>
 				</ul>
@@ -97,14 +100,14 @@
 		</aside>
 		<!--sidebar end-->		
 	<script type="text/javascript">
-	<!--
+	
 	$(function() {   
-    // 针对纵向菜单，只要点击后显示或隐藏即可   
-    $(".main > a").click(function() {   
-        var ulNode = $(this).next("ul");   
-        ulNode.slideToggle("slow");   
-    });   
-});--> 
+    	// 针对纵向菜单，只要点击后显示或隐藏即可   
+    	$(".main > a").click(function() {   
+     	   var ulNode = $(this).next("ul");   
+    	    ulNode.slideToggle("slow");   
+  	     });   
+	});
 
 
 	</script>

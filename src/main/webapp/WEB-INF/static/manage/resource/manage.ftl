@@ -201,7 +201,7 @@
 			dataType : 'json',
 			success : function(data) {
 				if (data.result) {
-					bootbox.alert("保存成功，将刷新页面", function() {
+					bootbox.alert("保存成功，将 刷新页面", function() {
 						window.location.reload();
 					});
 				}else{
@@ -227,7 +227,7 @@
 	            return;
 			}
 			
-			if(node[0].pId!=1){
+			if(node[0].pId!=1 && node[0].id!=1){
 				bootbox.alert({message: "目前只支持二级层次",title: "提示"});
 	            return;
 			}
