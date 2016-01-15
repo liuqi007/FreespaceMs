@@ -1,6 +1,5 @@
 package com.shishuo.cms.action;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.json.JSONArray;
@@ -14,10 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.shishuo.cms.entity.UserRoleRel;
 import com.shishuo.cms.entity.vo.JsonVo;
-import com.shishuo.cms.entity.vo.ResourceVo;
-import com.shishuo.cms.service.ResourceService;
+import com.shishuo.cms.entity.vo.RoleVo;
+import com.shishuo.cms.service.RoleService;
 import com.shishuo.cms.service.UserRoleRelService;
 
 /**
@@ -34,45 +32,18 @@ public class UserRoleRelAction extends BaseAction {
 	private UserRoleRelService userRoleRelService;
 
 	@Autowired
-	private ResourceService resourceService;
+	private RoleService roleService;
 
 	/**
 	 * 进入用户角色关联管理页面
 	 */
 	@RequestMapping(value = "/asign.htm", method = RequestMethod.GET)
 	public String asign(ModelMap modelMap,
-			@RequestParam(value = "roleId", defaultValue = "0") long roleId) {
+			@RequestParam(value = "userId", defaultValue = "0") long userId) {
 		try {
-			List<ResourceVo> tree = new ArrayList<ResourceVo>();// 树形
-			List<ResourceVo> allList = resourceService.getAllList();// 所有资源
-			List<UserRoleRel> allUserRoleRel = userRoleRelService
-					.getUserRoleRelById(roleId);// 该角色拥有的资源关系
-
-			for (ResourceVo resourceVo : allList) {
-				ResourceVo node = new ResourceVo();
-				node.setId(resourceVo.getResId());
-				node.setpId(resourceVo.getParentResId());
-				node.setName(resourceVo.getName());
-				node.setLink(resourceVo.getUrl());
-				node.setCreateTime(resourceVo.getCreateTime());
-				node.setIconcss(resourceVo.getIconcss());
-				node.setNocheck(false);
-//				for (UserRoleRel roleResourceRel : allUserRoleRel) {
-//					if (roleResourceRel.getResId() == resourceVo.getResId()) {
-//						node.setChecked(true);// 勾选上
-//					}
-//				}
-				tree.add(node);
-			}
-			ResourceVo root = new ResourceVo();
-			root.setpId(0);
-			root.setId(1);
-			root.setName("根目录");
-			root.setOpen(true);
-			root.setNocheck(true);
-			tree.add(root);
-			modelMap.put("allResource", JSONArray.fromObject(tree).toString());
-			modelMap.put("roleId", roleId);
+			List<RoleVo> allList = roleService.getAllList();// 所有资源
+			modelMap.put("allRole", allList);
+			modelMap.put("userId", userId);
 			return "manage/userrolerel/asign";
 		} catch (Exception e) {
 			e.printStackTrace();

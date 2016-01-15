@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.shishuo.cms.dao.RoleDao;
 import com.shishuo.cms.entity.Role;
 import com.shishuo.cms.entity.vo.PageVo;
+import com.shishuo.cms.entity.vo.RoleVo;
 import com.shishuo.cms.exception.AuthException;
 
 /**
@@ -95,8 +96,8 @@ public class RoleService {
 	 * @param rows
 	 * @return List<Role>
 	 */
-	public List<Role> getAllList(long offset, long rows) {
-		return roleDao.getAllList(offset, rows);
+	public List<Role> getRolesByPage(long offset, long rows) {
+		return roleDao.getRolesByPage(offset, rows);
 	}
 
 	/**
@@ -117,7 +118,7 @@ public class RoleService {
 	public PageVo<Role> getAllListPage(int pageNum) {
 		PageVo<Role> pageVo = new PageVo<Role>(pageNum);
 		pageVo.setRows(10);
-		List<Role> list = this.getAllList(pageVo.getOffset(), pageVo.getRows());
+		List<Role> list = this.getRolesByPage(pageVo.getOffset(), pageVo.getRows());
 		pageVo.setList(list);
 		pageVo.setCount(this.getAllListCount());
 		return pageVo;
@@ -131,5 +132,9 @@ public class RoleService {
 	 */
 	public List<Role> getRoleByName(String name) {
 		return roleDao.getRoleByName(name);
+	}
+	
+	public List<RoleVo> getAllList() {
+		return roleDao.getAllList();
 	}
 }

@@ -39,9 +39,13 @@
 	<!-- ###### 查询 ###### -->
 	<!-- ############################## -->
 
-	<select id="getAllList" resultType="com.shishuo.cms.entity.Role">
+	<select id="getRolesByPage" resultType="com.shishuo.cms.entity.Role">
 		select * from role limit
 		#{offset},#{rows}
+	</select>
+	
+	<select id="getAllList" resultType="com.shishuo.cms.entity.Role">
+		select * from role
 	</select>
 
 	<select id="getAllListCount" resultType="int">

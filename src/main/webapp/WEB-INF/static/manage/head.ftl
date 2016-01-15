@@ -39,6 +39,7 @@
 		kind = "article";
 	</script>
 <script src="${BASE_PATH}/static/manage/js/jquery.js?v=${config_v}"></script>
+<script src="${BASE_PATH}/static/manage/js/checkboxCheckAll.js?v=${config_v}"></script>
 </head>
 <body class="boxed-page">
 	<div class="container">

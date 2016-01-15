@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.shishuo.cms.entity.Role;
+import com.shishuo.cms.entity.vo.RoleVo;
 
 /**
  * 角色管理dao类
@@ -66,7 +67,7 @@ public interface RoleDao {
 	 * @return List<Role>
 	 * 
 	 */
-	public List<Role> getAllList(@Param("offset") long offset,
+	public List<Role> getRolesByPage(@Param("offset") long offset,
 			@Param("rows") long rows);
 
 	/**
@@ -92,4 +93,11 @@ public interface RoleDao {
 	 * @return User
 	 */
 	public List<Role> getRoleByName(String name);
+
+	/**
+	 * 获得所有角色资料
+	 * 
+	 * @return User
+	 */
+	public List<RoleVo> getAllList();
 }

@@ -1,7 +1,5 @@
 <#assign menu="/manage/user/manage.htm">
 <#include "/manage/head.ftl">
-<link rel="stylesheet" href="${BASE_PATH}/static/manage/css/multiselect2side/jquery.multiselect2side.css" type="text/css">
-<script type="text/javascript" src="${BASE_PATH}/static/manage/js/multiselect2side/jquery.multiselect2side.js"></script>
 <!--main content start-->
 <section id="main-content">
 	<section class="wrapper">
@@ -25,30 +23,42 @@
 				<div class="col-lg-4">
 					<ul class="breadcrumb" style="margin-bottom:0px;">
 						<li>
-							<a href="${BASE_PATH}/manage/article/list.htm">用户角色分配 </a>
 						</li>
 					</ul>
 				</div>
+				<div class="col-lg-8">
+					<a class="btn btn-danger" style="margin-left:80%" href="${BASE_PATH}/manage/user/add.htm">保存</a>
+					<a class="btn btn-primary"  href="#" onclick="history:go(-1)">返回</a>
+			   	</div>
 			   </div>
 			</header>
 			<div class="panel-body">
                 <form id="add_admin_form" method="post" class="form-horizontal" autocomplete="off" action="${BASE_PATH}/manage/roleresourcerel/update.json">
-                <input type="hidden" id="roleId" name="roleId" value="${roleId}"/>
+                <input type="hidden" id="userId" name="userId" value="${userId}"/>
                 <input type="hidden" id="selectResIds" name="selectResIds" value=""/>
-				<div class="col-lg-4">
-					<div id="sel">
-				      <select name="liOption[]" id='liOption' multiple='multiple' size='8' >
-				        <option value="PHP">PHP</option>
-				        <option value="MYSQL">MYSQL</option>
-				        <option value="ASP.NET">ASP.NET</option>
-				        <option value="XHTML">XHTML</option>
-				        <option value="CSS">CSS</option>
-				        <option value="JQUERY">JQUERY</option>
-				      </select>
-				     </div>
-
+                <div class="adv-table">
+					<div role="grid" class="dataTables_wrapper"
+						id="hidden-table-info_wrapper">
+						<table class="table table-striped table-advance table-hover">
+		                <thead>
+		                   <tr>
+		                    <th><input type="checkbox" id="selectAll"/></th>
+		                    <th>角色姓名</th>
+		                    <th>创建时间</th>
+		                   </tr>
+                        </thead>
+                      <tbody role="alert" aria-live="polite" aria-relevant="all">
+                        <#list allRole as e>
+		                    <tr class="gradeA odd">
+		                      <td><input type="checkbox" name="subCheckbox"/></td>
+	                          <td>${e.name}</td>
+	                          <td>${e.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
+                          	</tr>
+                          </#list>
+                        </tbody>
+                      </table>
+                   </div>
 				</div>
-                          <button class="btn btn-info" type="submit" style="margin-left:100px">确定</button>
                 </form>
 			</div>
 		</section>
@@ -57,16 +67,8 @@
 	</section>
 </section>
 <script type="text/javascript">
-	//var zNodes =${allResource};
+	initCheckBox('selectAll','subCheckbox');
 	$(function() {
-	   $("#liOption").multiselect2side({
-		    selectedPosition: 'right',
-		    moveOptions: false,
-			labelsx: '待选区',
-			labeldx: '已选区'
-	   });
-
-	
 		$('#add_admin_form').ajaxForm({
 			dataType : 'json',
 			success : function(data) {
